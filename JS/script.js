@@ -30,6 +30,8 @@ const randomMovieBtn = document.querySelector('#randomMovieBtn');
 const findMovieBtn = document.querySelector('#findMovieBtn');
 const addMovieBtn = document.querySelector('#addMovieBtn');
 const deleteMovieBtn = document.querySelector('#deleteMovieBtn');
+const sortMovieGenre = document.querySelector('#sortMovieGenre')
+
 
 
 //Fetch movielist-div
@@ -53,6 +55,7 @@ const rangeYearData = document.querySelector('#rangeYearData')
 //Choose random movie function
 
 //Choose movie genre 
+
 
 //Local storage 
 
