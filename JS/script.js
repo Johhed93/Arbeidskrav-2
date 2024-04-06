@@ -1,6 +1,6 @@
 //Fetch api
 const BASE_URL = "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
-
+let allMovies;
 const fetchMovies = async () => {
     try {
         const res = await fetch(BASE_URL);
@@ -8,7 +8,10 @@ const fetchMovies = async () => {
             throw new Error("Ops, noe gikk feil med hentingen.");
         }
         const data = await res.json();
-        console.log(data);
+        allMovies=data
+        
+        
+       
     } catch(error) {
         console.error(error);
     }
@@ -16,7 +19,10 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
-
+const randomMovie= ()=>{
+    const randomNumber= Math.floor(Math.random()*allMovies.length);
+    return allMovies[randomNumber]
+}
 
 
 
