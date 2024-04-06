@@ -19,10 +19,6 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
-const randomMovie= ()=>{
-    const randomNumber= Math.floor(Math.random()*allMovies.length);
-    return allMovies[randomNumber]
-}
 
 
 
@@ -59,10 +55,28 @@ const rangeYearData = document.querySelector('#rangeYearData')
 
 
 //Choose random movie function
+const randomMovie= ()=>{
+    const randomNumber= Math.floor(Math.random()*allMovies.length);
+    return allMovies[randomNumber]
+}
+randomMovieBtn.addEventListener("click", ()=>{
+console.log(randomMovie())
+})
+
 
 //Choose movie genre 
-
-
+const allMovieGenre= ()=>{
+    const findGenres= allMovies.flatMap(movie=>  movie.genres)
+    let allGenres=Array.from(new Set(findGenres))
+    return allGenres
+}
+const chooseMovieGenre= (value)=>{
+    
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
+}
 //Local storage 
 
 
