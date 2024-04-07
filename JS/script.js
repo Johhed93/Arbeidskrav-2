@@ -23,7 +23,6 @@ const rangeYearInput = document.querySelector("#rangeYear");
 
 //Fetch knapper
 const randomMovieBtn = document.querySelector("#randomMovieBtn");
-const findMovieBtn = document.querySelector("#findMovieBtn");
 const addMovieBtn = document.querySelector("#addMovieBtn");
 const deleteMovieBtn = document.querySelector("#deleteMovieBtn");
 const sortMovieGenre = document.querySelector("#sortMovieGenre");
