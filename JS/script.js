@@ -85,4 +85,14 @@ const chooseMovieGenre = (value) => {
   });
   return choosenGenre;
 };
+
+
 //Local storage
+const saveData = () => {
+  localStorage.setItem('data', movielist.innerHTML); //Lagrer innhold i movielist
+}
+
+const showData = () => {
+  movielist.innerHTML = localStorage.getItem('data');
+}
+showData();
