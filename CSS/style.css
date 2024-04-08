@@ -3,3 +3,36 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    font-family: Arial Rounded MT, sans-serif;
+    color: black;
+}
+
+header {
+    width: 100%;
+    background-color: #A19CE8;
+    padding: 25px;
+    border: 1px solid gray;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.headerTitle {
+    border: none;
+    font-size: 1.8rem;
+}
