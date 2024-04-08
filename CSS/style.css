@@ -42,7 +42,9 @@ header nav ul li a {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-items: start;
     margin: 0 3%;
+    height: 200px;
 }
 
 #findMovieInput {
@@ -63,5 +65,11 @@ header nav ul li a {
     padding: 10px;
     font-size: 1rem;
     font-family: Arial Rounded MT, sans-serif;
-    border-radius: 13px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.filterIcon {
+    height: 18px;
+    margin-right: 5px;
 }
