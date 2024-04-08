@@ -12,25 +12,30 @@
       <nav>
         <ul>
           <li><a href="./index.html">Forside</a></li>
-          <li><a href="./index.html" class="headerTitle">Filmer fra 2020 - 2024</a></li>
+          <li>
+            <a href="./index.html" class="headerTitle">Filmer fra 2020 - 2024</a>
+          </li>
           <li><a href="./myList.html">Min Liste</a></li>
         </ul>
       </nav>
     </header>
-    <input type="text" id="findMovieInput" placeholder="Finn film" />
-    <div class="buttons">
+    <div class="search-container">
+      <input type="text" id="findMovieInput" placeholder="Søk etter film" />
       <button id="randomMovieBtn">Velg en tilfeldig film</button>
+      <button id="filterMoviesBtn">Filtrer</button>
+    </div>
+    <div class="buttons">
       <button id="findMovieBtn">Finn film</button>
       <button id="addMovieBtn">Legg til film</button>
       <button id="deleteMovieBtn">Slett film</button>
       <button id="deleteMovieBtn">Slett film</button>
     </div>
     <div class="rangeYear">
-    <label for="vol">Velg år mellom 2010 - 2019:</label>
-    <input type="range" id="rangeYear" name="vol" min="2010" max="2019" />
-    <p id="rangeYearData">Placeholder year</p>
-</div>
-<button id="sortMovieGenre">Sorter etter sjanger</button>
-<div id="movielist"></div>
+      <label for="vol">Velg år mellom 2010 - 2019:</label>
+      <input type="range" id="rangeYear" name="vol" min="2010" max="2019" />
+      <p id="rangeYearData">Placeholder year</p>
+    </div>
+    <button id="sortMovieGenre">Sorter etter sjanger</button>
+    <div id="movielist"></div>
   </body>
 </html>

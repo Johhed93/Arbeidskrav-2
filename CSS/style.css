@@ -14,12 +14,13 @@ header {
     background-color: #A19CE8;
     padding: 25px;
     border: 1px solid gray;
+    margin-bottom: 50px;
 }
 
 header nav ul {
     list-style-type: none;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -35,4 +36,32 @@ header nav ul li a {
 .headerTitle {
     border: none;
     font-size: 1.8rem;
+}
+
+.search-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 0 3%;
+}
+
+#findMovieInput {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 20px;
+}
+
+#randomMovieBtn {
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    border-radius: 13px;
+    background-color: #FFE97A;
+}
+
+#filterMoviesBtn {
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    border-radius: 13px;
 }
