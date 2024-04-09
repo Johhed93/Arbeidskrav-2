@@ -20,9 +20,7 @@
         <ul>
           <li><a href="./index.html">Forside</a></li>
           <li>
-            <a href="./index.html" class="headerTitle"
-              >Filmer fra 2020 - 2024</a
-            >
+            <a href="./index.html" class="headerTitle">Filmer fra 2020 - 2023</a>
           </li>
           <li><a href="./myList.html">Min Liste</a></li>
         </ul>
@@ -30,12 +28,66 @@
     </header>
     <div class="search-container">
       <input type="text" id="findMovieInput" placeholder="Søk etter film" />
+      <div class="filterWrapper">
+        <div>
+          <button class="filter" onclick="showYearSelection()">
+            Årstall <img src="./assets/arrowDownIcon.png" class="filterIcon">
+          </button>
+          <form class="filterForm" id="selectYearsForm">
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="year2020" name="year2020" value="2020">
+              <label for="year2020">2020</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="year2021" name="year2021" value="2021">
+              <label for="year2020">2021</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="year2022" name="year2022" value="2022">
+              <label for="year2020">2022</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="year2023" name="year2023" value="2023">
+              <label for="year2020">2023</label>
+            </div>
+          </form>
+        </div>
+        <div class="selectYearContainer">
+          <button class="filter" onclick="showGenreSelection()">
+            Sjanger <img src="./assets/arrowDownIcon.png" class="filterIcon">
+          </button>
+          <form class="filterForm" id="selectGenresForm">
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+            <div class="yearContainer">
+              <input type="checkbox" class="checkbox" id="genreAction" name="genreAction" value="Action">
+              <label for="genreAction">Action</label>
+            </div>
+          </form>
+        </div>
+      </div>
       <button id="randomMovieBtn">Velg en tilfeldig film</button>
-      <button id="filterMoviesBtn">
-        <img src="./assets/filterIcon.png" class="filterIcon" />Filtrer
-      </button>
     </div>
     <div id="movielistContainer"></div>
+    <!--
     <div class="buttons">
       <button id="findMovieBtn">Finn film</button>
       <button id="addMovieBtn">Legg til film</button>
