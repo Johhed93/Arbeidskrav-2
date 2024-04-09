@@ -45,11 +45,18 @@ const showMyMovies= (movie)=>{
     informationBox.style.alignItems="center"
     informationBox.style.gap="10px"
     let image= document.createElement("img")
-    image.src=movie.thumbnail;
+    
     image.alt=`${movie.title} cover`;
+    image.onerror=()=> {this.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"}
     image.style.height="300px"
     image.style.width="150px"
     image.style.objectFit="cover"
+    if(!movie.thumbnail){
+      image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+      
+    }else{
+      image.src=movie.thumbnail;
+    }
     informationBox.appendChild(image);
     
     let textbox=document.createElement("div");

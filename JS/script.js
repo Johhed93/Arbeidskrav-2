@@ -179,12 +179,18 @@ const saveData = () => {
   else{
     localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
   }
-  
 }
 const addToWatchList=(object)=>{
   let watchList= JSON.parse(localStorage.getItem("data"))
-  watchList.push(object)
-  localStorage.setItem('data', JSON.stringify(watchList))
+  const checkIfExist = watchList.some(movie => movie.title === object.title)
+  console.log(checkIfExist)
+  if(!checkIfExist){
+    watchList.push(object)
+    localStorage.setItem('data', JSON.stringify(watchList))
+  }else{
+    console.log("Den finns redan")
+  }
+  
 }
 
 saveData();
