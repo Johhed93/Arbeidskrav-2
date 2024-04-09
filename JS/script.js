@@ -1,4 +1,5 @@
 //Fetch api
+
 const BASE_URL =
   "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
 let allMovies;
@@ -7,6 +8,7 @@ const fetchMovies = async () => {
     const res = await fetch(BASE_URL);
     if (!res.ok) {
       throw new Error("Ops, noe gikk feil med hentingen.");
+
     }
     const data = await res.json();
     allMovies = data;
@@ -64,6 +66,30 @@ const rangeYearData = document.querySelector("#rangeYearData");
 //Sort movie release year
 
 //Choose random movie function
+const randomMovie= ()=>{
+    const randomNumber= Math.floor(Math.random()*allMovies.length);
+    return allMovies[randomNumber]
+}
+randomMovieBtn.addEventListener("click", ()=>{
+console.log(randomMovie())
+})
+
+
+//Choose movie genre 
+const allMovieGenre= ()=>{
+    const findGenres= allMovies.flatMap(movie=>  movie.genres)
+    let allGenres=Array.from(new Set(findGenres))
+    return allGenres
+}
+const chooseMovieGenre= (value)=>{
+    
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
+}
+//Choose randommovie
+
 const randomMovie = () => {
   const randomNumber = Math.floor(Math.random() * allMovies.length);
   return allMovies[randomNumber];
@@ -71,19 +97,6 @@ const randomMovie = () => {
 randomMovieBtn.addEventListener("click", () => {
   console.log(randomMovie());
 });
-
-//Choose movie genre
-const allMovieGenre = () => {
-  const findGenres = allMovies.flatMap((movie) => movie.genres);
-  let allGenres = Array.from(new Set(findGenres));
-  return allGenres;
-};
-const chooseMovieGenre = (value) => {
-  let choosenGenre = allMovies.filter((movie) => {
-    return movie.genres.includes(value);
-  });
-  return choosenGenre;
-};
 
 
 //Local storage

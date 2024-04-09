@@ -3,3 +3,73 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    font-family: Arial Rounded MT, sans-serif;
+    color: black;
+}
+
+header {
+    width: 100%;
+    background-color: #A19CE8;
+    padding: 25px;
+    border: 1px solid gray;
+    margin-bottom: 50px;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.headerTitle {
+    border: none;
+    font-size: 1.8rem;
+}
+
+.search-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: start;
+    margin: 0 3%;
+    height: 200px;
+}
+
+#findMovieInput {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 20px;
+}
+
+#randomMovieBtn {
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    border-radius: 13px;
+    background-color: #FFE97A;
+}
+
+#filterMoviesBtn {
+    padding: 10px;
+    font-size: 1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    border-radius: 5px;
+    display: flex;
+}
+
+.filterIcon {
+    height: 18px;
+    margin-right: 5px;
+}
