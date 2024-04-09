@@ -29,6 +29,9 @@ const myWatchList= document.querySelector("#myWatchList");
 //Show movies
 const showMovies = (movie) => {
     const divContainer = document.createElement("div");
+    divContainer.addEventListener("click", ()=>{
+      addToWatchList(movie)
+    })
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
     const titleText = document.createElement("p");
@@ -71,32 +74,7 @@ const showMovies = (movie) => {
     movielistContainer.appendChild(divContainer);
 }
 
-const showMyMovies= (movie)=>{
-  let container= document.createElement("div");
-  container.style.border="1px solid black"
-  container.style.display="flex"
-  container.style.justifyContent="space-between";
-  container.style.alignItems="center"
-  let informationBox= document.createElement("div");
-  let image= document.createElement("image")
-  image.src=movie.thumbnail;
-  image.alt=`${movie.title} cover`;
-informationBox.appendChild(image);
 
-  let textbox=document.createElement("div");
-  let title= document.createElement("h2");
-  let year= document.createElement("p");
-  title.innerHTML=movie.title;
-  year.innerHTML=movie.year;
-  textbox.appendChild(title)
-  textbox.appendChild(year)
-  informationBox.appendChild(textbox);
-  
-  let removeButton= document.createElement("button");
-  
-
-
-}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -182,15 +160,6 @@ const addToWatchList=(object)=>{
   localStorage.setItem('data', JSON.stringify(watchList))
 }
 
-const showData = () => {
-  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
-}
-const deleteData= (object)=>{
-  let watchList=JSON.parse(localStorage.getItem('data'));
-  let index= watchList.findIndex(movie=>movie.name===object.name);
-  watchList.splice(index,1);
-  localStorage.setItem("data", JSON.stringify(watchList))
-}
 saveData();
 //Sort movie by letter in the alphabel 
 const sortInAlphabeticalOrder= ()=>{
