@@ -12,8 +12,8 @@ const fetchMovies = async () => {
     }
     const data = await res.json();
     allMovies = data;
-    const movies = allMovies.forEach(movie => {
-            showMovies(movie.title, movie.thumbnail, movie.year);
+    sortInAlphabeticalOrder().forEach(movie => {
+            showMovies(movie);
         });
   } catch (error) {
     console.error(error);
@@ -24,9 +24,10 @@ fetchMovies();
 
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
+const myWatchList= document.querySelector("#myWatchList");
 
 //Show movies
-const showMovies = (title, img, year) => {
+const showMovies = (movie) => {
     const divContainer = document.createElement("div");
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -43,20 +44,23 @@ const showMovies = (title, img, year) => {
     divTitleContainer.style.justifyContent = "center";
     divTitleContainer.style.textAlign = "center";
    
-    if (!img) {
+    if (!movie.thumbnail) {
         image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
     } else {
-        image.src = img;
+        image.src = movie.thumbnail;
     }
-    image.alt = title + "-cover";
+    image.alt = movie.title + "-cover";
     image.style.height = "300px";
     image.style.width = "200px";
     image.style.objectFit = "cover";
-    titleText.innerHTML = title;
+    image.onerror=() => {
+      image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+    }
+    titleText.innerHTML = movie.title;
     titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
     titleText.style.fontSize = "1.7rem";
     titleText.style.margin = "10px 0";
-    yearText.innerHTML = year;
+    yearText.innerHTML = movie.year;
     yearText.style.fontSize = "1rem";
     yearText.style.marginBottom = "10px";
     yearText.style.color = "#595959";
@@ -88,6 +92,33 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
+
+const showMyMovies= (movie)=>{
+  let container= document.createElement("div");
+  container.style.border="1px solid black"
+  container.style.display="flex"
+  container.style.justifyContent="space-between";
+  container.style.alignItems="center"
+  let informationBox= document.createElement("div");
+  let image= document.createElement("image")
+  image.src=movie.thumbnail;
+  image.alt=`${movie.title} cover`;
+informationBox.appendChild(image);
+
+  let textbox=document.createElement("div");
+  let title= document.createElement("h2");
+  let year= document.createElement("p");
+  title.innerHTML=movie.title;
+  year.innerHTML=movie.year;
+  textbox.appendChild(title)
+  textbox.appendChild(year)
+  informationBox.appendChild(textbox);
+  
+  let removeButton= document.createElement("button");
+  
+
+
+}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -131,7 +162,13 @@ const rangeYearData = document.querySelector("#rangeYearData");
 //Delete movie from library
 
 //Sort movie release year
-
+const showReleaseYear=()=>{
+  const allYears= allMovies.map(movie=>movie.year);
+  return Array.from(new Set(allYears))
+}
+const chooseReleaseYear=(value)=>{
+return allMovies.filter(movie=>movie.year===value)
+}
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -159,10 +196,25 @@ const chooseMovieGenre= (value)=>{
 
 //Local storage
 const saveData = () => {
-  localStorage.setItem('data', movielist.innerHTML); //Lagrer innhold i movielist
+  localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+}
+const addToWatchList=(object)=>{
+  let watchList= JSON.parse(localStorage.getItem("data"))
+  watchList.push(object)
+  localStorage.setItem('data', JSON.stringify(watchList))
 }
 
 const showData = () => {
-  movielist.innerHTML = localStorage.getItem('data');
+  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
 }
-showData();
+const deleteData= (object)=>{
+  let watchList=JSON.parse(localStorage.getItem('data'));
+  let index= watchList.findIndex(movie=>movie.name===object.name);
+  watchList.splice(index,1);
+  localStorage.setItem("data", JSON.stringify(watchList))
+}
+saveData();
+//Sort movie by letter in the alphabel 
+const sortInAlphabeticalOrder= ()=>{
+return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
+}
