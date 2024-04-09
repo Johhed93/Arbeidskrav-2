@@ -109,7 +109,13 @@ const rangeYearData = document.querySelector("#rangeYearData");
 //Delete movie from library
 
 //Sort movie release year
-
+const showReleaseYear=()=>{
+  const allYears= allMovies.map(movie=>movie.year);
+  return Array.from(new Set(allYears))
+}
+const chooseReleaseYear=(value)=>{
+return allMovies.filter(movie=>movie.year===value)
+}
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -137,10 +143,25 @@ const chooseMovieGenre= (value)=>{
 
 //Local storage
 const saveData = () => {
-  localStorage.setItem('data', movielist.innerHTML); //Lagrer innhold i movielist
+  localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+}
+const addToWatchList=(object)=>{
+  let watchList= JSON.parse(localStorage.getItem("data"))
+  watchList.push(object)
+  localStorage.setItem('data', JSON.stringify(watchList))
 }
 
 const showData = () => {
-  movielist.innerHTML = localStorage.getItem('data');
+  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
 }
-showData();
+const deleteData= (object)=>{
+  let watchList=JSON.parse(localStorage.getItem('data'));
+  let index= watchList.findIndex(movie=>movie.name===object.name);
+  watchList.splice(index,1);
+  localStorage.setItem("data", JSON.stringify(watchList))
+}
+saveData();
+//Sort movie by letter in the alphabel 
+const sortInAlphabeticalOrder= ()=>{
+return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
+}
