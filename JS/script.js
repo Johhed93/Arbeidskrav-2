@@ -118,7 +118,7 @@ informationBox.appendChild(image);
   informationBox.appendChild(textbox);
   
   let removeButton= document.createElement("button");
-
+}
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
