@@ -12,12 +12,60 @@ const fetchMovies = async () => {
     }
     const data = await res.json();
     allMovies = data;
+    const movies = allMovies.forEach(movie => {
+            showMovies(movie.title, movie.thumbnail, movie.year);
+        });
   } catch (error) {
     console.error(error);
   }
 };
 
 fetchMovies();
+
+//Fetch movielist-div
+const movielistContainer = document.getElementById("movielistContainer");
+
+//Show movies
+const showMovies = (title, img, year) => {
+    const divContainer = document.createElement("div");
+    const divTitleContainer = document.createElement("div");
+    const image = document.createElement("img");
+    const titleText = document.createElement("p");
+    const yearText = document.createElement("p");
+    divContainer.style.display = "flex";
+    divContainer.style.alignItems = "center";
+    divContainer.style.justifyContent = "space-between";
+    divContainer.style.flexFlow = "column wrap";
+    divContainer.style.border = "2px solid gray";
+    divContainer.style.borderRadius = "5px";
+    divTitleContainer.style.display = "flex";
+    divTitleContainer.style.width = "180px";
+    divTitleContainer.style.justifyContent = "center";
+    divTitleContainer.style.textAlign = "center";
+   
+    if (!img) {
+        image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
+    } else {
+        image.src = img;
+    }
+    image.alt = title + "-cover";
+    image.style.height = "300px";
+    image.style.width = "200px";
+    image.style.objectFit = "cover";
+    titleText.innerHTML = title;
+    titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
+    titleText.style.fontSize = "1.7rem";
+    titleText.style.margin = "10px 0";
+    yearText.innerHTML = year;
+    yearText.style.fontSize = "1rem";
+    yearText.style.marginBottom = "10px";
+    yearText.style.color = "#595959";
+    divContainer.appendChild(image);
+    divTitleContainer.appendChild(titleText);
+    divContainer.appendChild(divTitleContainer)
+    divContainer.appendChild(yearText);
+    movielistContainer.appendChild(divContainer);
+}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -28,9 +76,6 @@ const randomMovieBtn = document.querySelector("#randomMovieBtn");
 const addMovieBtn = document.querySelector("#addMovieBtn");
 const deleteMovieBtn = document.querySelector("#deleteMovieBtn");
 const sortMovieGenre = document.querySelector("#sortMovieGenre");
-
-//Fetch movielist-div
-const movielist = document.querySelector("#movielist");
 
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
