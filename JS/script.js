@@ -123,6 +123,9 @@ informationBox.appendChild(image);
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
 
+//Fetch overlay
+const overlay = document.querySelector('#overlay');
+
 //Fetch knapper
 const randomMovieBtn = document.querySelector("#randomMovieBtn");
 const addMovieBtn = document.querySelector("#addMovieBtn");
@@ -132,7 +135,7 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
 
-//Layout nettside 
+
 
 //Find movie
     const findMovie = () => {
