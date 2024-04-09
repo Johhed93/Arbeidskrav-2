@@ -96,29 +96,6 @@ const showGenreSelection = () => {
    }
 };
 
-const showMyMovies= (movie)=>{
-  let container= document.createElement("div");
-  container.style.border="1px solid black"
-  container.style.display="flex"
-  container.style.justifyContent="space-between";
-  container.style.alignItems="center"
-  let informationBox= document.createElement("div");
-  let image= document.createElement("image")
-  image.src=movie.thumbnail;
-  image.alt=`${movie.title} cover`;
-informationBox.appendChild(image);
-
-  let textbox=document.createElement("div");
-  let title= document.createElement("h2");
-  let year= document.createElement("p");
-  title.innerHTML=movie.title;
-  year.innerHTML=movie.year;
-  textbox.appendChild(title)
-  textbox.appendChild(year)
-  informationBox.appendChild(textbox);
-  
-  let removeButton= document.createElement("button");
-
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
@@ -151,6 +128,7 @@ const rangeYearData = document.querySelector("#rangeYearData");
           console.log("Fant ikke film. Søk igjen");
         }
       };
+
       
       findMovieInput.addEventListener("input", findMovie);
       
@@ -195,12 +173,24 @@ const chooseMovieGenre= (value)=>{
 
 //Local storage
 const saveData = () => {
-  localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+  if(localStorage.getItem("data")){
+    return
+  }
+  else{
+    localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+  }
 }
 const addToWatchList=(object)=>{
   let watchList= JSON.parse(localStorage.getItem("data"))
-  watchList.push(object)
-  localStorage.setItem('data', JSON.stringify(watchList))
+  const checkIfExist = watchList.some(movie => movie.title === object.title)
+  console.log(checkIfExist)
+  if(!checkIfExist){
+    watchList.push(object)
+    localStorage.setItem('data', JSON.stringify(watchList))
+  }else{
+    console.log("Den finns redan")
+  }
+  
 }
 
 saveData();
