@@ -52,25 +52,55 @@ header nav ul li a {
     border-radius: 20px;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+.filterWrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.filter {
+    padding: 10px;
+    font-size: 1.1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.filterIcon {
+    height: 15px;
+    margin-left: 40px;
+}
+
+.filterForm {
+    position: absolute;
+    flex-flow: column nowrap;
+    font-size: 1.1rem;
+    font-family: Arial Rounded MT, sans-serif;
+    border: 1px solid black;
+    background-color: rgb(244, 244, 244);
+    padding: 10px 40px 10px 10px;
+}
+
+.yearContainer {
+    display: flex;
+    margin: 5px;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
 #randomMovieBtn {
     padding: 10px;
     font-size: 1rem;
     font-family: Arial Rounded MT, sans-serif;
     border-radius: 13px;
     background-color: #FFE97A;
-}
-
-#filterMoviesBtn {
-    padding: 10px;
-    font-size: 1rem;
-    font-family: Arial Rounded MT, sans-serif;
-    border-radius: 5px;
-    display: flex;
-}
-
-.filterIcon {
-    height: 18px;
-    margin-right: 5px;
 }
 
 #movielistContainer {
