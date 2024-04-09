@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mitt filmbibliotek</title>
     <link rel="stylesheet" href="./CSS/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="./JS/script.js" defer></script>
   </head>
   <body>
@@ -13,7 +20,9 @@
         <ul>
           <li><a href="./index.html">Forside</a></li>
           <li>
-            <a href="./index.html" class="headerTitle">Filmer fra 2020 - 2024</a>
+            <a href="./index.html" class="headerTitle"
+              >Filmer fra 2020 - 2024</a
+            >
           </li>
           <li><a href="./myList.html">Min Liste</a></li>
         </ul>
@@ -23,7 +32,7 @@
       <input type="text" id="findMovieInput" placeholder="Søk etter film" />
       <button id="randomMovieBtn">Velg en tilfeldig film</button>
       <button id="filterMoviesBtn">
-        <img src="./assets/filterIcon.png" class="filterIcon">Filtrer
+        <img src="./assets/filterIcon.png" class="filterIcon" />Filtrer
       </button>
     </div>
     <div id="movielistContainer"></div>
@@ -33,14 +42,12 @@
       <button id="deleteMovieBtn">Slett film</button>
     </div>
     <div class="rangeYear">
-
       <label for="vol">Velg år mellom 2020 - 2024:</label>
       <input type="range" id="rangeYear" name="vol" min="2010" max="2019" />
       <p id="rangeYearData">Placeholder year</p>
     </div>
     <button id="sortMovieGenre">Sorter etter sjanger</button>
-</div>
-<div id="movielist"></div>
 
+    <div id="movielist"></div>
   </body>
 </html>
