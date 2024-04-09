@@ -12,7 +12,7 @@ const fetchMovies = async () => {
     }
     const data = await res.json();
     allMovies = data;
-    const movies = sortInAlphabeticalOrder().forEach(movie => {
+    sortInAlphabeticalOrder().forEach(movie => {
             showMovies(movie);
         });
   } catch (error) {
