@@ -145,11 +145,10 @@ const rangeYearData = document.querySelector("#rangeYearData");
         
       
         if (foundMovies.length > 0) {
+          movielistContainer.innerHTML = "";
           foundMovies.forEach(movie => {
-            console.log(movie.title);
+            showMovies(movie);
           });
-        } else {
-          console.log("Fant ikke film. Søk igjen");
         }
       };
       
@@ -181,10 +180,11 @@ console.log(randomMovie())
 
 //Choose movie genre 
 const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie=>  movie.genres)
+    const findGenres= allMovies.flatMap(movie =>  movie.genres)
     let allGenres=Array.from(new Set(findGenres))
     return allGenres
 }
+
 const chooseMovieGenre= (value)=>{
     
     let choosenGenre= allMovies.filter(movie=>{
