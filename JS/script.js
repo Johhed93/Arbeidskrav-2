@@ -29,6 +29,9 @@ const myWatchList= document.querySelector("#myWatchList");
 //Show movies
 const showMovies = (movie) => {
     const divContainer = document.createElement("div");
+    divContainer.addEventListener("click", ()=>{
+      addToWatchList(movie)
+    })
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
     const titleText = document.createElement("p");
@@ -115,10 +118,6 @@ informationBox.appendChild(image);
   informationBox.appendChild(textbox);
   
   let removeButton= document.createElement("button");
-  
-
-
-}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -204,15 +203,6 @@ const addToWatchList=(object)=>{
   localStorage.setItem('data', JSON.stringify(watchList))
 }
 
-const showData = () => {
-  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
-}
-const deleteData= (object)=>{
-  let watchList=JSON.parse(localStorage.getItem('data'));
-  let index= watchList.findIndex(movie=>movie.name===object.name);
-  watchList.splice(index,1);
-  localStorage.setItem("data", JSON.stringify(watchList))
-}
 saveData();
 //Sort movie by letter in the alphabel 
 const sortInAlphabeticalOrder= ()=>{
