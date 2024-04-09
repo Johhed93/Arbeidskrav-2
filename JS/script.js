@@ -105,3 +105,7 @@ const showData = () => {
   movielist.innerHTML = localStorage.getItem('data');
 }
 showData();
+//Sort movie by letter in the alphabel 
+const sortInAlphabeticalOrder= ()=>{
+return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
+}
