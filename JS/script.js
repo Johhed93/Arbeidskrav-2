@@ -64,7 +64,13 @@ const rangeYearData = document.querySelector("#rangeYearData");
 //Delete movie from library
 
 //Sort movie release year
-
+const showReleaseYear=()=>{
+  const allYears= allMovies.map(movie=>movie.year);
+  return Array.from(new Set(allYears))
+}
+const chooseReleaseYear=(value)=>{
+return allMovies.filter(movie=>movie.year===value)
+}
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -88,20 +94,11 @@ const chooseMovieGenre= (value)=>{
     })
     return choosenGenre
 }
-//Choose randommovie
-
-const randomMovie = () => {
-  const randomNumber = Math.floor(Math.random() * allMovies.length);
-  return allMovies[randomNumber];
-};
-randomMovieBtn.addEventListener("click", () => {
-  console.log(randomMovie());
-});
 
 
 //Local storage
-const saveData = () => {
-  localStorage.setItem('data', movielist.innerHTML); //Lagrer innhold i movielist
+const saveData = (object) => {
+  localStorage.setItem('data', object); //Lagrer innhold i movielist
 }
 
 const showData = () => {
