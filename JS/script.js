@@ -88,15 +88,6 @@ const chooseMovieGenre= (value)=>{
     })
     return choosenGenre
 }
-//Choose randommovie
-
-const randomMovie = () => {
-  const randomNumber = Math.floor(Math.random() * allMovies.length);
-  return allMovies[randomNumber];
-};
-randomMovieBtn.addEventListener("click", () => {
-  console.log(randomMovie());
-});
 
 
 //Local storage
