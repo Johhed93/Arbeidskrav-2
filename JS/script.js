@@ -97,14 +97,25 @@ const chooseMovieGenre= (value)=>{
 
 
 //Local storage
-const saveData = (object) => {
-  localStorage.setItem('data', object); //Lagrer innhold i movielist
+const saveData = () => {
+  localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+}
+const addToWatchList=(object)=>{
+  let watchList= JSON.parse(localStorage.getItem("data"))
+  watchList.push(object)
+  localStorage.setItem('data', JSON.stringify(watchList))
 }
 
 const showData = () => {
-  movielist.innerHTML = localStorage.getItem('data');
+  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
 }
-showData();
+const deleteData= (object)=>{
+  let watchList=JSON.parse(localStorage.getItem('data'));
+  let index= watchList.findIndex(movie=>movie.name===object.name);
+  watchList.splice(index,1);
+  localStorage.setItem("data", JSON.stringify(watchList))
+}
+saveData();
 //Sort movie by letter in the alphabel 
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
