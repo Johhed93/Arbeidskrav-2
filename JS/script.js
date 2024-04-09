@@ -12,8 +12,8 @@ const fetchMovies = async () => {
     }
     const data = await res.json();
     allMovies = data;
-    const movies = allMovies.forEach(movie => {
-            showMovies(movie.title, movie.thumbnail, movie.year);
+    const movies = sortInAlphabeticalOrder().forEach(movie => {
+            showMovies(movie);
         });
   } catch (error) {
     console.error(error);
@@ -26,7 +26,7 @@ fetchMovies();
 const movielistContainer = document.getElementById("movielistContainer");
 
 //Show movies
-const showMovies = (title, img, year) => {
+const showMovies = (movie) => {
     const divContainer = document.createElement("div");
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -43,20 +43,23 @@ const showMovies = (title, img, year) => {
     divTitleContainer.style.justifyContent = "center";
     divTitleContainer.style.textAlign = "center";
    
-    if (!img) {
+    if (!movie.thumbnail) {
         image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
     } else {
-        image.src = img;
+        image.src = movie.thumbnail;
     }
-    image.alt = title + "-cover";
+    image.alt = movie.title + "-cover";
     image.style.height = "300px";
     image.style.width = "200px";
     image.style.objectFit = "cover";
-    titleText.innerHTML = title;
+    image.onerror=() => {
+      image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+    }
+    titleText.innerHTML = movie.title;
     titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
     titleText.style.fontSize = "1.7rem";
     titleText.style.margin = "10px 0";
-    yearText.innerHTML = year;
+    yearText.innerHTML = movie.year;
     yearText.style.fontSize = "1rem";
     yearText.style.marginBottom = "10px";
     yearText.style.color = "#595959";
