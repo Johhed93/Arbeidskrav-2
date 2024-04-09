@@ -67,6 +67,28 @@ const showMovies = (title, img, year) => {
     movielistContainer.appendChild(divContainer);
 }
 
+//Filter year
+const selectYearsForm = document.getElementById("selectYearsForm");
+selectYearsForm.style.display = "none";
+const showYearSelection = () => {
+   if (selectYearsForm.style.display == "none") {
+    selectYearsForm.style.display = "flex";
+   } else {
+    selectYearsForm.style.display = "none";
+   }
+};
+
+// Filter Genre
+const selectGenresForm = document.getElementById("selectGenresForm");
+selectGenresForm.style.display = "none";
+const showGenreSelection = () => {
+   if (selectGenresForm.style.display == "none") {
+    selectGenresForm.style.display = "flex";
+   } else {
+    selectGenresForm.style.display = "none";
+   }
+};
+
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
