@@ -165,8 +165,11 @@ const randomMovie= ()=>{
     return allMovies[randomNumber]
 }
 randomMovieBtn.addEventListener("click", ()=>{
-console.log(randomMovie())
+  overlay.innerHTML = '';
+showSpecificMovie(randomMovie());
 })
+
+
 
 
 //Choose movie genre 
