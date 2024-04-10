@@ -84,17 +84,6 @@ button:hover {
     padding: 10px 40px 10px 10px;
 }
 
-.yearContainer {
-    display: flex;
-    margin: 5px;
-}
-
-.checkbox {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
 #randomMovieBtn {
     padding: 10px;
     font-size: 1rem;
