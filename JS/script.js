@@ -356,3 +356,13 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 };
+// Inloggningsfunksjoner sessionstorage oppsett
+const setLoginstatus = (status) => {
+  sessionStorage.setItem("loggedIn", status ? "true" : "false");
+};
+const loggedIn = () => {
+  return sessionStorage.getItem("loggedIn") === "true";
+}; 
+const getLoggedInUser= ()=>{
+  return JSON.parse(sessionStorage.getItem("loggedInUser"));
+ }
