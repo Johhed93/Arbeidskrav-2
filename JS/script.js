@@ -74,7 +74,7 @@ const showMovies = (movie) => {
     movielistContainer.appendChild(divContainer);
 }
 
-//Filter year
+//Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 const showYearSelection = () => {
@@ -84,6 +84,26 @@ const showYearSelection = () => {
     selectYearsForm.style.display = "none";
    }
 };
+
+//Sort movie release year
+const showReleaseYear=()=>{
+    const allYears = allMovies.map(movie=>movie.year);
+    let uniqueYears = Array.from(new Set(allYears))
+    uniqueYears.sort();
+    uniqueYears.forEach(year => {
+        displayReleaseYear(year);
+    });
+}
+
+const displayReleaseYear = () => {
+    const yearContainer = document.createElement("div");
+    const yearInput = document.createElement("input");
+    const yearLabel = document.createElement("label");
+}
+
+const chooseReleaseYear=(value)=>{
+  return allMovies.filter(movie=>movie.year===value)
+}
 
 // Filter Genre
 const selectGenresForm = document.getElementById("selectGenresForm");
@@ -96,28 +116,18 @@ const showGenreSelection = () => {
    }
 };
 
-const showMyMovies= (movie)=>{
-  let container= document.createElement("div");
-  container.style.border="1px solid black"
-  container.style.display="flex"
-  container.style.justifyContent="space-between";
-  container.style.alignItems="center"
-  let informationBox= document.createElement("div");
-  let image= document.createElement("image")
-  image.src=movie.thumbnail;
-  image.alt=`${movie.title} cover`;
-  informationBox.appendChild(image);
+//Choose movie genre 
+const allMovieGenre= ()=>{
+    const findGenres= allMovies.flatMap(movie =>  movie.genres)
+    let allGenres=Array.from(new Set(findGenres))
+    return allGenres
+}
 
-  let textbox=document.createElement("div");
-  let title= document.createElement("h2");
-  let year= document.createElement("p");
-  title.innerHTML=movie.title;
-  year.innerHTML=movie.year;
-  textbox.appendChild(title)
-  textbox.appendChild(year)
-  informationBox.appendChild(textbox);
-  
-  let removeButton= document.createElement("button");
+const chooseMovieGenre= (value)=>{
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
 }
 
 //Fetch inputtypes
@@ -136,8 +146,6 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
 
-
-
 //Find movie
     const findMovie = () => {
         const inputValue = findMovieInput.value.toLowerCase();
@@ -148,11 +156,10 @@ const rangeYearData = document.querySelector("#rangeYearData");
         
       
         if (foundMovies.length > 0) {
+          movielistContainer.innerHTML = "";
           foundMovies.forEach(movie => {
-            console.log(movie.title);
+            showMovies(movie);
           });
-        } else {
-          console.log("Fant ikke film. Søk igjen");
         }
       };
 
@@ -163,16 +170,6 @@ const rangeYearData = document.querySelector("#rangeYearData");
 
 //Add movie to movie library
 
-//Delete movie from library
-
-//Sort movie release year
-const showReleaseYear=()=>{
-  const allYears= allMovies.map(movie=>movie.year);
-  return Array.from(new Set(allYears))
-}
-const chooseReleaseYear=(value)=>{
-return allMovies.filter(movie=>movie.year===value)
-}
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -181,22 +178,6 @@ const randomMovie= ()=>{
 randomMovieBtn.addEventListener("click", ()=>{
 console.log(randomMovie())
 })
-
-
-//Choose movie genre 
-const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie=>  movie.genres)
-    let allGenres=Array.from(new Set(findGenres))
-    return allGenres
-}
-const chooseMovieGenre= (value)=>{
-    
-    let choosenGenre= allMovies.filter(movie=>{
-        return movie.genres.includes(value)
-    })
-    return choosenGenre
-}
-
 
 //Local storage
 const saveData = () => {
@@ -221,7 +202,8 @@ const addToWatchList=(object)=>{
 }
 
 saveData();
-//Sort movie by letter in the alphabel 
+
+//Sort movie by letter in the alphabet 
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
