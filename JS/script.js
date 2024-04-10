@@ -77,10 +77,13 @@ const showMovies = (movie) => {
 //Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
+let i = 0;
 const showYearSelection = () => {
    if (selectYearsForm.style.display == "none") {
-    selectYearsForm.innerHTML = "";
-    showReleaseYear();
+    if (i === 0){
+      showReleaseYear();
+      i += 1;
+    }
     selectYearsForm.style.display = "flex";
    } else {
     selectYearsForm.style.display = "none";
@@ -101,13 +104,20 @@ const displayReleaseYear = (year) => {
     const yearContainer = document.createElement("div");
     const yearInput = document.createElement("input");
     const yearLabel = document.createElement("label");
-    yearContainer.style.display = "flex";
-    yearContainer.style.margin = "5px";
-    yearInput.type = "checkbox";
+    yearContainer.classList.add("yearContainer");
+    yearInput.type = "radio";
+    yearInput.id = "year" + year;
+    yearInput.name = "year";
     yearInput.value = year;
-    yearInput.style.width = "20px";
-    yearInput.style.height = "20px";
-    yearInput.style.marginRight = "10px";
+    yearInput.addEventListener("click", () => {
+        const yearRadioBtn = document.getElementById(`year${year}`);
+        if (yearRadioBtn.checked == true) {
+          let filteredMovies = chooseReleaseYear(yearRadioBtn.value);
+          movielistContainer.innerHTML = "";
+          filteredMovies.forEach(movie => showMovies(movie))
+        }
+    });
+    yearInput.classList.add("radio");
     yearLabel.for = "year" + year;
     yearLabel.innerHTML = year;
     yearContainer.appendChild(yearInput);
@@ -115,7 +125,16 @@ const displayReleaseYear = (year) => {
     selectYearsForm.appendChild(yearContainer);
 }
 
+const yearAllBtn = document.getElementById("yearAllBtn");
+yearAllBtn.addEventListener("click", () => {
+    if (yearAllBtn.checked == true) {
+        movielistContainer.innerHTML = "";
+        allMovies.forEach(movie => showMovies(movie));
+    }
+});
+
 const chooseReleaseYear=(value)=>{
+  value = Number(value);
   return allMovies.filter(movie=>movie.year===value)
 }
 

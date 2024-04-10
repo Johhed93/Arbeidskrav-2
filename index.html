@@ -33,7 +33,12 @@
           <button class="filter" onclick="showYearSelection()">
             Årstall <img src="./assets/arrowDownIcon.png" class="filterIcon">
           </button>
-          <form class="filterForm" id="selectYearsForm"></form>
+          <form class="filterForm" id="selectYearsForm">
+            <div class="yearContainer">
+              <input type="radio" class="radio" id="yearAllBtn" name="year" value="all" checked>
+              <label for="yearAll">Alle år</label>
+            </div>
+          </form>
         </div>
         <div class="selectYearContainer">
           <button class="filter" onclick="showGenreSelection()">
