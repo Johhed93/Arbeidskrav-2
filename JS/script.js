@@ -79,6 +79,8 @@ const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 const showYearSelection = () => {
    if (selectYearsForm.style.display == "none") {
+    selectYearsForm.innerHTML = "";
+    showReleaseYear();
     selectYearsForm.style.display = "flex";
    } else {
     selectYearsForm.style.display = "none";
@@ -95,10 +97,22 @@ const showReleaseYear=()=>{
     });
 }
 
-const displayReleaseYear = () => {
+const displayReleaseYear = (year) => {
     const yearContainer = document.createElement("div");
     const yearInput = document.createElement("input");
     const yearLabel = document.createElement("label");
+    yearContainer.style.display = "flex";
+    yearContainer.style.margin = "5px";
+    yearInput.type = "checkbox";
+    yearInput.value = year;
+    yearInput.style.width = "20px";
+    yearInput.style.height = "20px";
+    yearInput.style.marginRight = "10px";
+    yearLabel.for = "year" + year;
+    yearLabel.innerHTML = year;
+    yearContainer.appendChild(yearInput);
+    yearContainer.appendChild(yearLabel);
+    selectYearsForm.appendChild(yearContainer);
 }
 
 const chooseReleaseYear=(value)=>{
