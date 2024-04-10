@@ -28,9 +28,17 @@ const myWatchList= document.querySelector("#myWatchList");
 
 //Show movies
 const showMovies = (movie) => {
+    
     const divContainer = document.createElement("div");
+
+  
     divContainer.addEventListener("click", ()=>{
-      addToWatchList(movie)
+    overlay.innerHTML = ''
+    showSpecificMovie(movie);
+    
+    
+
+
     })
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -74,6 +82,11 @@ const showMovies = (movie) => {
     movielistContainer.appendChild(divContainer);
 }
 
+
+
+
+//Filter year
+=======
 //Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
@@ -129,6 +142,7 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
+
 
 //Choose movie genre 
 const allMovieGenre= ()=>{
@@ -190,9 +204,9 @@ const randomMovie= ()=>{
     return allMovies[randomNumber]
 }
 randomMovieBtn.addEventListener("click", ()=>{
-console.log(randomMovie())
+  overlay.innerHTML = '';
+showSpecificMovie(randomMovie());
 })
-
 //Local storage
 const saveData = () => {
   if(localStorage.getItem("data")){
@@ -221,3 +235,121 @@ saveData();
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
+
+
+const showSpecificMovie = (movie) => {
+  
+  const divTitleContainer = document.createElement("div");
+  const image = document.createElement("img");
+  const titleText = document.createElement("p");
+  const yearText = document.createElement("p");
+  const movieDescripton = document.createElement('p');
+  const actors = document.createElement('p');
+
+  
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = 'space-evenly';
+  overlay.style.flexFlow = "flexrow wrap";
+  overlay.style.border = "2px solid gray";
+  overlay.style.borderRadius = "5px";
+  overlay.style.backgroundColor = '#FFE97A';
+ 
+  
+  divTitleContainer.style.display = "flex";
+  divTitleContainer.style.width = "600px";
+  divTitleContainer.style.flexFlow = 'column';
+  divTitleContainer.style.justifyContent = "center";
+  divTitleContainer.style.textAlign = "center";
+  divTitleContainer.style.marginRight = '15px';
+  divTitleContainer.style.paddingBottom = '45px';
+ 
+  if (!movie.thumbnail) {
+      image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
+  } else {
+      image.src = movie.thumbnail;
+  }
+  image.alt = movie.title + "-cover";
+  image.style.height = "400px";
+  image.style.width = "250px";
+  image.style.objectFit = "cover";
+  image.onerror=() => {
+    image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+  }
+ 
+  titleText.innerHTML = movie.title;
+  titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
+  titleText.style.fontSize = "1.7rem";
+  titleText.style.margin = "10px 0";
+ 
+  yearText.innerHTML = movie.year;
+  yearText.style.fontSize = "0.8rem";
+  yearText.style.marginBottom = "10px";
+  yearText.style.color = "#595959";
+
+  movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  movieDescripton.style.fontSize = '1rem';
+
+  actors.innerHTML = `Cast: ${movie.cast}`;
+  actors.style.padding = '15px';
+  actors.style.fontSize ='0.8rem';
+
+
+
+  //Knapp som lukker vinduet
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '<i class="fa-solid fa-x"></i>'
+  closeBtn.style.padding = '10px';
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '5px';
+  closeBtn.style.right = '5px';
+
+
+
+  //Knapp som legger til film i min liste
+  const addBtn = document.createElement('button');
+ 
+  addBtn.style.display = 'flex';
+  addBtn.style.alignItems = 'center';
+  addBtn.style.padding = '2px';
+  addBtn.style.position = 'absolute';
+  addBtn.style.bottom = '10px';
+  addBtn.style.left = '10px';
+  addBtn.style.borderRadius = '15px';
+  addBtn.style.backgroundColor = '#FF9898';
+  
+
+  const addBtnImage = document.createElement('img');
+  addBtnImage.src = './assets/addToListIcon.png';
+  addBtnImage.style.width = '30px';
+  addBtnImage.style.height = '30px'
+  addBtn.appendChild(addBtnImage) 
+
+  addBtn.appendChild(document.createTextNode('Legg til i ønsket sett'))
+
+
+
+  
+  divTitleContainer.appendChild(titleText); 
+  overlay.appendChild(divTitleContainer) 
+  divTitleContainer.appendChild(yearText); 
+  divTitleContainer.appendChild(movieDescripton);
+  overlay.appendChild(image);
+  divTitleContainer.appendChild(actors);
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(addBtn);
+  movielistContainer.appendChild(overlay);
+
+  closeBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  })
+
+addBtn.addEventListener('click', () => {
+  addToWatchList(movie);
+  overlay.style.display = 'none';
+})
+
+
+
+}
+
