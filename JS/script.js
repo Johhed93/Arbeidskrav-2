@@ -218,28 +218,29 @@ return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 
 const showSpecificMovie = (movie) => {
   
-
-
   const divTitleContainer = document.createElement("div");
   const image = document.createElement("img");
   const titleText = document.createElement("p");
   const yearText = document.createElement("p");
   const movieDescripton = document.createElement('p');
+  const actors = document.createElement('p');
 
   
   overlay.style.display = "flex";
   overlay.style.alignItems = "center";
+  overlay.style.justifyContent = 'space-evenly';
   overlay.style.flexFlow = "flexrow wrap";
   overlay.style.border = "2px solid gray";
   overlay.style.borderRadius = "5px";
   overlay.style.backgroundColor = '#FFE97A';
+ 
   
   divTitleContainer.style.display = "flex";
-  divTitleContainer.style.width = "480px";
+  divTitleContainer.style.width = "600px";
   divTitleContainer.style.flexFlow = 'column';
   divTitleContainer.style.justifyContent = "center";
   divTitleContainer.style.textAlign = "center";
-  divTitleContainer.style.margin = '15px';
+  divTitleContainer.style.marginRight = '15px';
   divTitleContainer.style.paddingBottom = '45px';
  
   if (!movie.thumbnail) {
@@ -248,21 +249,29 @@ const showSpecificMovie = (movie) => {
       image.src = movie.thumbnail;
   }
   image.alt = movie.title + "-cover";
-  image.style.height = "300px";
-  image.style.width = "200px";
+  image.style.height = "400px";
+  image.style.width = "250px";
   image.style.objectFit = "cover";
   image.onerror=() => {
     image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
   }
+ 
   titleText.innerHTML = movie.title;
   titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
   titleText.style.fontSize = "1.7rem";
   titleText.style.margin = "10px 0";
+ 
   yearText.innerHTML = movie.year;
-  yearText.style.fontSize = "1rem";
+  yearText.style.fontSize = "0.8rem";
   yearText.style.marginBottom = "10px";
   yearText.style.color = "#595959";
-  movieDescripton.innerHTML = movie.extract;
+
+  movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  movieDescripton.style.fontSize = '1rem';
+
+  actors.innerHTML = `Cast: ${movie.cast}`;
+  actors.style.padding = '15px';
+  actors.style.fontSize ='0.8rem';
 
 
 
@@ -281,10 +290,10 @@ const showSpecificMovie = (movie) => {
  
   addBtn.style.display = 'flex';
   addBtn.style.alignItems = 'center';
-  addBtn.style.padding = '10px';
+  addBtn.style.padding = '2px';
   addBtn.style.position = 'absolute';
-  addBtn.style.bottom = '5px';
-  addBtn.style.left = '5px';
+  addBtn.style.bottom = '10px';
+  addBtn.style.left = '10px';
   addBtn.style.borderRadius = '15px';
   addBtn.style.backgroundColor = '#FF9898';
   
@@ -303,9 +312,10 @@ const showSpecificMovie = (movie) => {
   divTitleContainer.appendChild(titleText); 
   overlay.appendChild(divTitleContainer) 
   divTitleContainer.appendChild(yearText); 
-  divTitleContainer.appendChild(movieDescripton)
+  divTitleContainer.appendChild(movieDescripton);
   overlay.appendChild(image);
-  overlay.appendChild(closeBtn)
+  divTitleContainer.appendChild(actors);
+  overlay.appendChild(closeBtn);
   overlay.appendChild(addBtn);
   movielistContainer.appendChild(overlay);
 
