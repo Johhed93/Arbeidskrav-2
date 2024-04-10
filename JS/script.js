@@ -207,6 +207,34 @@ randomMovieBtn.addEventListener("click", ()=>{
   overlay.innerHTML = '';
 showSpecificMovie(randomMovie());
 })
+
+//Choose movie genre 
+const top10MovieGenre= ()=>{
+  const findGenres= allMovies.flatMap(movie =>  movie.genres)
+  let genreObject=[]
+  findGenres.forEach(genre=>{
+    if (!genreObject[genre]) {
+      genreObject[genre] = [];
+  }
+  genreObject[genre].push(genre);
+});
+    
+  let sortedGenres= Object.entries(genreObject).sort((a,b)=>{ return b[1].length-a[1].length})
+  sortedGenres.splice(10);
+  sortedGenres.forEach(genre=>{
+    genre.splice(1)
+  })
+  return sortedGenres
+}
+
+const chooseMovieGenre= (value)=>{
+    
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
+}
+
 //Local storage
 const saveData = () => {
   if(localStorage.getItem("data")){
