@@ -84,16 +84,53 @@ const showMovies = (movie) => {
 
 
 
+
 //Filter year
+=======
+//Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 const showYearSelection = () => {
    if (selectYearsForm.style.display == "none") {
+    selectYearsForm.innerHTML = "";
+    showReleaseYear();
     selectYearsForm.style.display = "flex";
    } else {
     selectYearsForm.style.display = "none";
    }
 };
+
+//Sort movie release year
+const showReleaseYear=()=>{
+    const allYears = allMovies.map(movie=>movie.year);
+    let uniqueYears = Array.from(new Set(allYears))
+    uniqueYears.sort();
+    uniqueYears.forEach(year => {
+        displayReleaseYear(year);
+    });
+}
+
+const displayReleaseYear = (year) => {
+    const yearContainer = document.createElement("div");
+    const yearInput = document.createElement("input");
+    const yearLabel = document.createElement("label");
+    yearContainer.style.display = "flex";
+    yearContainer.style.margin = "5px";
+    yearInput.type = "checkbox";
+    yearInput.value = year;
+    yearInput.style.width = "20px";
+    yearInput.style.height = "20px";
+    yearInput.style.marginRight = "10px";
+    yearLabel.for = "year" + year;
+    yearLabel.innerHTML = year;
+    yearContainer.appendChild(yearInput);
+    yearContainer.appendChild(yearLabel);
+    selectYearsForm.appendChild(yearContainer);
+}
+
+const chooseReleaseYear=(value)=>{
+  return allMovies.filter(movie=>movie.year===value)
+}
 
 // Filter Genre
 const selectGenresForm = document.getElementById("selectGenresForm");
@@ -105,6 +142,21 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
+
+
+//Choose movie genre 
+const allMovieGenre= ()=>{
+    const findGenres= allMovies.flatMap(movie =>  movie.genres)
+    let allGenres=Array.from(new Set(findGenres))
+    return allGenres
+}
+
+const chooseMovieGenre= (value)=>{
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
+}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -122,8 +174,6 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
 
-
-
 //Find movie
     const findMovie = () => {
         const inputValue = findMovieInput.value.toLowerCase();
@@ -134,11 +184,10 @@ const rangeYearData = document.querySelector("#rangeYearData");
         
       
         if (foundMovies.length > 0) {
+          movielistContainer.innerHTML = "";
           foundMovies.forEach(movie => {
-            console.log(movie.title);
+            showMovies(movie);
           });
-        } else {
-          console.log("Fant ikke film. Søk igjen");
         }
       };
 
@@ -149,16 +198,6 @@ const rangeYearData = document.querySelector("#rangeYearData");
 
 //Add movie to movie library
 
-//Delete movie from library
-
-//Sort movie release year
-const showReleaseYear=()=>{
-  const allYears= allMovies.map(movie=>movie.year);
-  return Array.from(new Set(allYears))
-}
-const chooseReleaseYear=(value)=>{
-return allMovies.filter(movie=>movie.year===value)
-}
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -168,25 +207,6 @@ randomMovieBtn.addEventListener("click", ()=>{
   overlay.innerHTML = '';
 showSpecificMovie(randomMovie());
 })
-
-
-
-
-//Choose movie genre 
-const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie=>  movie.genres)
-    let allGenres=Array.from(new Set(findGenres))
-    return allGenres
-}
-const chooseMovieGenre= (value)=>{
-    
-    let choosenGenre= allMovies.filter(movie=>{
-        return movie.genres.includes(value)
-    })
-    return choosenGenre
-}
-
-
 //Local storage
 const saveData = () => {
   if(localStorage.getItem("data")){
@@ -210,7 +230,8 @@ const addToWatchList=(object)=>{
 }
 
 saveData();
-//Sort movie by letter in the alphabel 
+
+//Sort movie by letter in the alphabet 
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
