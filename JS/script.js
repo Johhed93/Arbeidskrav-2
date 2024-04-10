@@ -266,7 +266,7 @@ const showSpecificMovie = (movie) => {
 
   //Knapp som lukker vinduet
   const closeBtn = document.createElement('button');
-  closeBtn.textContent = 'Lukk vinduet'
+  closeBtn.innerHTML = '<i class="fa-solid fa-x"></i>'
   closeBtn.style.position = 'absolute';
   closeBtn.style.top = '15px';
   closeBtn.style.right = '15px';
@@ -275,7 +275,7 @@ const showSpecificMovie = (movie) => {
 
   //Knapp som legger til film i min liste
   const addBtn = document.createElement('button');
-  addBtn.textContent = 'Legg til film';
+  addBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
   addBtn.style.position = 'absolute';
   addBtn.style.top = '15px';
   addBtn.style.left = '15px';
