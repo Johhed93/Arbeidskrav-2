@@ -291,6 +291,7 @@ const showSpecificMovie = (movie) => {
   addBtn.style.display = 'flex';
   addBtn.style.alignItems = 'center';
   addBtn.style.padding = '2px';
+  addBtn.style.paddingInline = '20px';
   addBtn.style.position = 'absolute';
   addBtn.style.bottom = '10px';
   addBtn.style.left = '10px';
@@ -326,6 +327,7 @@ const showSpecificMovie = (movie) => {
 addBtn.addEventListener('click', () => {
   addToWatchList(movie);
   overlay.style.display = 'none';
+  
 })
 
 
