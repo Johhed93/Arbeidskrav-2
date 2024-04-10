@@ -74,7 +74,7 @@ const showMovies = (movie) => {
     movielistContainer.appendChild(divContainer);
 }
 
-//Filter year
+//Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 const showYearSelection = () => {
@@ -84,6 +84,26 @@ const showYearSelection = () => {
     selectYearsForm.style.display = "none";
    }
 };
+
+//Sort movie release year
+const showReleaseYear=()=>{
+    const allYears = allMovies.map(movie=>movie.year);
+    let uniqueYears = Array.from(new Set(allYears))
+    uniqueYears.sort();
+    uniqueYears.forEach(year => {
+        displayReleaseYear(year);
+    });
+}
+
+const displayReleaseYear = () => {
+    const yearContainer = document.createElement("div");
+    const yearInput = document.createElement("input");
+    const yearLabel = document.createElement("label");
+}
+
+const chooseReleaseYear=(value)=>{
+  return allMovies.filter(movie=>movie.year===value)
+}
 
 // Filter Genre
 const selectGenresForm = document.getElementById("selectGenresForm");
@@ -95,6 +115,20 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
+
+//Choose movie genre 
+const allMovieGenre= ()=>{
+    const findGenres= allMovies.flatMap(movie =>  movie.genres)
+    let allGenres=Array.from(new Set(findGenres))
+    return allGenres
+}
+
+const chooseMovieGenre= (value)=>{
+    let choosenGenre= allMovies.filter(movie=>{
+        return movie.genres.includes(value)
+    })
+    return choosenGenre
+}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -136,15 +170,6 @@ const rangeYearData = document.querySelector("#rangeYearData");
 
 //Add movie to movie library
 
-//Sort movie release year
-const showReleaseYear=()=>{
-  const allYears= allMovies.map(movie=>movie.year);
-  return Array.from(new Set(allYears))
-}
-const chooseReleaseYear=(value)=>{
-return allMovies.filter(movie=>movie.year===value)
-}
-
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -153,21 +178,6 @@ const randomMovie= ()=>{
 randomMovieBtn.addEventListener("click", ()=>{
 console.log(randomMovie())
 })
-
-//Choose movie genre 
-const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie =>  movie.genres)
-    let allGenres=Array.from(new Set(findGenres))
-    return allGenres
-}
-
-const chooseMovieGenre= (value)=>{
-    let choosenGenre= allMovies.filter(movie=>{
-        return movie.genres.includes(value)
-    })
-    return choosenGenre
-}
-
 
 //Local storage
 const saveData = () => {
