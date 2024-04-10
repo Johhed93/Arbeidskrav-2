@@ -157,11 +157,24 @@ console.log(randomMovie())
 
 
 //Choose movie genre 
-const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie=>  movie.genres)
-    let allGenres=Array.from(new Set(findGenres))
-    return allGenres
+const top10MovieGenre= ()=>{
+  const findGenres= allMovies.flatMap(movie =>  movie.genres)
+  let genreObject=[]
+  findGenres.forEach(genre=>{
+    if (!genreObject[genre]) {
+      genreObject[genre] = [];
+  }
+  genreObject[genre].push(genre);
+});
+    
+  let sortedGenres= Object.entries(genreObject).sort((a,b)=>{ return b[1].length-a[1].length})
+  sortedGenres.splice(10);
+  sortedGenres.forEach(genre=>{
+    genre.splice(1)
+  })
+  return sortedGenres
 }
+
 const chooseMovieGenre= (value)=>{
     
     let choosenGenre= allMovies.filter(movie=>{
