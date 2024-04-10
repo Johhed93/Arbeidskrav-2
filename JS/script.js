@@ -30,29 +30,11 @@ const myWatchList= document.querySelector("#myWatchList");
 const showMovies = (movie) => {
     
     const divContainer = document.createElement("div");
-    const movieDescripton = document.createElement('p');
-    const closeBtn = document.createElement('button');
-    movieDescripton.innerHTML = movie.extract;
+
+  
     divContainer.addEventListener("click", ()=>{
     overlay.innerHTML = ''
-    overlay.style.display = 'flex';
-    overlay.style.justifyContent = 'center';
-    overlay.style.flexdDirection = 'column'
-
-    //Knapp som lukker vinduet
-    closeBtn.textContent = 'Lukk vinduet'
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '15px';
-    closeBtn.style.right = '15px';
-
-    overlay.appendChild(image);
-    /* overlay.appendChild(titleText); */
-   /*  overlay.appendChild(divTitleContainer) */
-    /* overlay.appendChild(yearText); */
-    overlay.appendChild(movieDescripton)
-    overlay.appendChild(closeBtn)
-    movielistContainer.appendChild(overlay);
-
+    showSpecificMovie(movie);
     
     
 
@@ -123,30 +105,6 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
-
-const showMyMovies= (movie)=>{
-  let container= document.createElement("div");
-  container.style.border="1px solid black"
-  container.style.display="flex"
-  container.style.justifyContent="space-between";
-  container.style.alignItems="center"
-  let informationBox= document.createElement("div");
-  let image= document.createElement("image")
-  image.src=movie.thumbnail;
-  image.alt=`${movie.title} cover`;
-  informationBox.appendChild(image);
-
-  let textbox=document.createElement("div");
-  let title= document.createElement("h2");
-  let year= document.createElement("p");
-  title.innerHTML=movie.title;
-  year.innerHTML=movie.year;
-  textbox.appendChild(title)
-  textbox.appendChild(year)
-  informationBox.appendChild(textbox);
-  
-  let removeButton= document.createElement("button");
-}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
@@ -254,4 +212,86 @@ const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
 
+
+const showSpecificMovie = (movie) => {
+  
+
+
+  const divTitleContainer = document.createElement("div");
+  const image = document.createElement("img");
+  const titleText = document.createElement("p");
+  const yearText = document.createElement("p");
+  const movieDescripton = document.createElement('p');
+
+  
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "space-between";
+  overlay.style.flexFlow = "column wrap";
+  overlay.style.border = "2px solid gray";
+  overlay.style.borderRadius = "5px";
+  overlay.style.backgroundColor = '#FFE97A';
+  
+  divTitleContainer.style.display = "flex";
+  divTitleContainer.style.width = "180px";
+  divTitleContainer.style.justifyContent = "space-between";
+  divTitleContainer.style.textAlign = "center";
+ 
+  if (!movie.thumbnail) {
+      image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
+  } else {
+      image.src = movie.thumbnail;
+  }
+  image.alt = movie.title + "-cover";
+  image.style.height = "300px";
+  image.style.width = "200px";
+  image.style.objectFit = "cover";
+  image.onerror=() => {
+    image.src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+  }
+  titleText.innerHTML = movie.title;
+  titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
+  titleText.style.fontSize = "1.7rem";
+  titleText.style.margin = "10px 0";
+  yearText.innerHTML = movie.year;
+  yearText.style.fontSize = "1rem";
+  yearText.style.marginBottom = "10px";
+  yearText.style.color = "#595959";
+  movieDescripton.innerHTML = movie.extract;
+
+
+
+  //Knapp som lukker vinduet
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Lukk vinduet'
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '15px';
+  closeBtn.style.right = '15px';
+
+
+
+  //Knapp som legger til film i min liste
+  const addBtn = document.createElement('button');
+  addBtn.textContent = 'Legg til film';
+  addBtn.style.position = 'absolute';
+  addBtn.style.top = '15px';
+  addBtn.style.left = '15px';
+
+
+  overlay.appendChild(image);
+  overlay.appendChild(titleText); 
+  overlay.appendChild(divTitleContainer) 
+  overlay.appendChild(yearText); 
+  overlay.appendChild(movieDescripton)
+  overlay.appendChild(closeBtn)
+  overlay.appendChild(addBtn);
+  movielistContainer.appendChild(overlay);
+
+  closeBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  })
+
+
+
+}
 
