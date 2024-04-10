@@ -96,30 +96,6 @@ const showGenreSelection = () => {
    }
 };
 
-const showMyMovies= (movie)=>{
-  let container= document.createElement("div");
-  container.style.border="1px solid black"
-  container.style.display="flex"
-  container.style.justifyContent="space-between";
-  container.style.alignItems="center"
-  let informationBox= document.createElement("div");
-  let image= document.createElement("image")
-  image.src=movie.thumbnail;
-  image.alt=`${movie.title} cover`;
-  informationBox.appendChild(image);
-
-  let textbox=document.createElement("div");
-  let title= document.createElement("h2");
-  let year= document.createElement("p");
-  title.innerHTML=movie.title;
-  year.innerHTML=movie.year;
-  textbox.appendChild(title)
-  textbox.appendChild(year)
-  informationBox.appendChild(textbox);
-  
-  let removeButton= document.createElement("button");
-}
-
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
@@ -135,8 +111,6 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
-
-
 
 //Find movie
     const findMovie = () => {
@@ -162,8 +136,6 @@ const rangeYearData = document.querySelector("#rangeYearData");
 
 //Add movie to movie library
 
-//Delete movie from library
-
 //Sort movie release year
 const showReleaseYear=()=>{
   const allYears= allMovies.map(movie=>movie.year);
@@ -172,6 +144,7 @@ const showReleaseYear=()=>{
 const chooseReleaseYear=(value)=>{
 return allMovies.filter(movie=>movie.year===value)
 }
+
 //Choose random movie function
 const randomMovie= ()=>{
     const randomNumber= Math.floor(Math.random()*allMovies.length);
@@ -181,7 +154,6 @@ randomMovieBtn.addEventListener("click", ()=>{
 console.log(randomMovie())
 })
 
-
 //Choose movie genre 
 const allMovieGenre= ()=>{
     const findGenres= allMovies.flatMap(movie =>  movie.genres)
@@ -190,7 +162,6 @@ const allMovieGenre= ()=>{
 }
 
 const chooseMovieGenre= (value)=>{
-    
     let choosenGenre= allMovies.filter(movie=>{
         return movie.genres.includes(value)
     })
@@ -221,7 +192,8 @@ const addToWatchList=(object)=>{
 }
 
 saveData();
-//Sort movie by letter in the alphabel 
+
+//Sort movie by letter in the alphabet 
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
