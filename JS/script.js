@@ -229,16 +229,18 @@ const showSpecificMovie = (movie) => {
   
   overlay.style.display = "flex";
   overlay.style.alignItems = "center";
-  overlay.style.justifyContent = "space-between";
-  overlay.style.flexFlow = "column wrap";
+  overlay.style.flexFlow = "flexrow wrap";
   overlay.style.border = "2px solid gray";
   overlay.style.borderRadius = "5px";
   overlay.style.backgroundColor = '#FFE97A';
   
   divTitleContainer.style.display = "flex";
-  divTitleContainer.style.width = "180px";
-  divTitleContainer.style.justifyContent = "space-between";
+  divTitleContainer.style.width = "480px";
+  divTitleContainer.style.flexFlow = 'column';
+  divTitleContainer.style.justifyContent = "center";
   divTitleContainer.style.textAlign = "center";
+  divTitleContainer.style.margin = '15px';
+  divTitleContainer.style.paddingBottom = '45px';
  
   if (!movie.thumbnail) {
       image.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
@@ -267,25 +269,42 @@ const showSpecificMovie = (movie) => {
   //Knapp som lukker vinduet
   const closeBtn = document.createElement('button');
   closeBtn.innerHTML = '<i class="fa-solid fa-x"></i>'
+  closeBtn.style.padding = '10px';
   closeBtn.style.position = 'absolute';
-  closeBtn.style.top = '15px';
-  closeBtn.style.right = '15px';
+  closeBtn.style.top = '5px';
+  closeBtn.style.right = '5px';
 
 
 
   //Knapp som legger til film i min liste
   const addBtn = document.createElement('button');
-  addBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+ 
+  addBtn.style.display = 'flex';
+  addBtn.style.alignItems = 'center';
+  addBtn.style.padding = '10px';
   addBtn.style.position = 'absolute';
-  addBtn.style.top = '15px';
-  addBtn.style.left = '15px';
+  addBtn.style.bottom = '5px';
+  addBtn.style.left = '5px';
+  addBtn.style.borderRadius = '15px';
+  addBtn.style.backgroundColor = '#FF9898';
+  
+
+  const addBtnImage = document.createElement('img');
+  addBtnImage.src = './assets/addToListIcon.png';
+  addBtnImage.style.width = '30px';
+  addBtnImage.style.height = '30px'
+  addBtn.appendChild(addBtnImage) 
+
+  addBtn.appendChild(document.createTextNode('Legg til i ønsket sett'))
 
 
-  overlay.appendChild(image);
-  overlay.appendChild(titleText); 
+
+  
+  divTitleContainer.appendChild(titleText); 
   overlay.appendChild(divTitleContainer) 
-  overlay.appendChild(yearText); 
-  overlay.appendChild(movieDescripton)
+  divTitleContainer.appendChild(yearText); 
+  divTitleContainer.appendChild(movieDescripton)
+  overlay.appendChild(image);
   overlay.appendChild(closeBtn)
   overlay.appendChild(addBtn);
   movielistContainer.appendChild(overlay);
@@ -298,6 +317,7 @@ addBtn.addEventListener('click', () => {
   addToWatchList(movie);
   overlay.style.display = 'none';
 })
+
 
 
 }
