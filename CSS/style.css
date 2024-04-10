@@ -111,3 +111,20 @@ button:hover {
     gap: 15px;
     margin: 10px;
 }
+
+
+#overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: grey;
+    color: black;
+    top: 50%;
+    right: 50%;
+    width: 40rem;
+    height: auto;
+    transform: translate(50%, -50%);
+    display: none;
+    
+}

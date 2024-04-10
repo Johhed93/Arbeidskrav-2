@@ -96,9 +96,36 @@ const showGenreSelection = () => {
    }
 };
 
+const showMyMovies= (movie)=>{
+  let container= document.createElement("div");
+  container.style.border="1px solid black"
+  container.style.display="flex"
+  container.style.justifyContent="space-between";
+  container.style.alignItems="center"
+  let informationBox= document.createElement("div");
+  let image= document.createElement("image")
+  image.src=movie.thumbnail;
+  image.alt=`${movie.title} cover`;
+  informationBox.appendChild(image);
+
+  let textbox=document.createElement("div");
+  let title= document.createElement("h2");
+  let year= document.createElement("p");
+  title.innerHTML=movie.title;
+  year.innerHTML=movie.year;
+  textbox.appendChild(title)
+  textbox.appendChild(year)
+  informationBox.appendChild(textbox);
+  
+  let removeButton= document.createElement("button");
+}
+
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
+
+//Fetch overlay
+const overlay = document.querySelector('#overlay');
 
 //Fetch knapper
 const randomMovieBtn = document.querySelector("#randomMovieBtn");
@@ -109,7 +136,7 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
 
-//Layout nettside 
+
 
 //Find movie
     const findMovie = () => {
