@@ -28,9 +28,35 @@ const myWatchList= document.querySelector("#myWatchList");
 
 //Show movies
 const showMovies = (movie) => {
+    
     const divContainer = document.createElement("div");
+    const movieDescripton = document.createElement('p');
+    const closeBtn = document.createElement('button');
+    movieDescripton.innerHTML = movie.extract;
     divContainer.addEventListener("click", ()=>{
-      addToWatchList(movie)
+    overlay.innerHTML = ''
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.flexdDirection = 'column'
+
+    //Knapp som lukker vinduet
+    closeBtn.textContent = 'Lukk vinduet'
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '15px';
+    closeBtn.style.right = '15px';
+
+    overlay.appendChild(image);
+    /* overlay.appendChild(titleText); */
+   /*  overlay.appendChild(divTitleContainer) */
+    /* overlay.appendChild(yearText); */
+    overlay.appendChild(movieDescripton)
+    overlay.appendChild(closeBtn)
+    movielistContainer.appendChild(overlay);
+
+    
+    
+
+
     })
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -73,6 +99,8 @@ const showMovies = (movie) => {
     divContainer.appendChild(yearText);
     movielistContainer.appendChild(divContainer);
 }
+
+
 
 //Filter year
 const selectYearsForm = document.getElementById("selectYearsForm");
@@ -211,3 +239,5 @@ saveData();
 const sortInAlphabeticalOrder= ()=>{
 return allMovies.sort((a,b)=> a.title.localeCompare(b.title))
 }
+
+
