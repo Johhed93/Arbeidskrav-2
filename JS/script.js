@@ -291,6 +291,10 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = 'none';
   })
 
+addBtn.addEventListener('click', () => {
+  addToWatchList(movie);
+  overlay.style.display = 'none';
+})
 
 
 }
