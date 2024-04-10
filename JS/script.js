@@ -29,6 +29,9 @@ const myWatchList= document.querySelector("#myWatchList");
 //Show movies
 const showMovies = (movie) => {
     const divContainer = document.createElement("div");
+    divContainer.addEventListener("click", ()=>{
+      addToWatchList(movie)
+    })
     const divTitleContainer = document.createElement("div");
     const image = document.createElement("img");
     const titleText = document.createElement("p");
@@ -103,7 +106,7 @@ const showMyMovies= (movie)=>{
   let image= document.createElement("image")
   image.src=movie.thumbnail;
   image.alt=`${movie.title} cover`;
-informationBox.appendChild(image);
+  informationBox.appendChild(image);
 
   let textbox=document.createElement("div");
   let title= document.createElement("h2");
@@ -115,14 +118,14 @@ informationBox.appendChild(image);
   informationBox.appendChild(textbox);
   
   let removeButton= document.createElement("button");
-  
-
-
 }
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
 const rangeYearInput = document.querySelector("#rangeYear");
+
+//Fetch overlay
+const overlay = document.querySelector('#overlay');
 
 //Fetch knapper
 const randomMovieBtn = document.querySelector("#randomMovieBtn");
@@ -133,7 +136,7 @@ const sortMovieGenre = document.querySelector("#sortMovieGenre");
 //Fetch rangeYearData
 const rangeYearData = document.querySelector("#rangeYearData");
 
-//Layout nettside 
+
 
 //Find movie
     const findMovie = () => {
@@ -151,6 +154,7 @@ const rangeYearData = document.querySelector("#rangeYearData");
           });
         }
       };
+
       
       findMovieInput.addEventListener("input", findMovie);
       
@@ -196,23 +200,26 @@ const chooseMovieGenre= (value)=>{
 
 //Local storage
 const saveData = () => {
-  localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+  if(localStorage.getItem("data")){
+    return
+  }
+  else{
+    localStorage.setItem('data', JSON.stringify([])); //Lagrer innhold i movielist
+  }
 }
 const addToWatchList=(object)=>{
   let watchList= JSON.parse(localStorage.getItem("data"))
-  watchList.push(object)
-  localStorage.setItem('data', JSON.stringify(watchList))
+  const checkIfExist = watchList.some(movie => movie.title === object.title)
+  console.log(checkIfExist)
+  if(!checkIfExist){
+    watchList.push(object)
+    localStorage.setItem('data', JSON.stringify(watchList))
+  }else{
+    console.log("Den finns redan")
+  }
+  
 }
 
-const showData = () => {
-  movielist.innerHTML = JSON.parse(localStorage.getItem('data'));
-}
-const deleteData= (object)=>{
-  let watchList=JSON.parse(localStorage.getItem('data'));
-  let index= watchList.findIndex(movie=>movie.name===object.name);
-  watchList.splice(index,1);
-  localStorage.setItem("data", JSON.stringify(watchList))
-}
 saveData();
 //Sort movie by letter in the alphabel 
 const sortInAlphabeticalOrder= ()=>{
