@@ -82,11 +82,6 @@ const showMovies = (movie) => {
     movielistContainer.appendChild(divContainer);
 }
 
-
-
-
-//Filter year
-=======
 //Filter release year
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
@@ -161,21 +156,6 @@ const showGenreSelection = () => {
     selectGenresForm.style.display = "none";
    }
 };
-
-
-//Choose movie genre 
-const allMovieGenre= ()=>{
-    const findGenres= allMovies.flatMap(movie =>  movie.genres)
-    let allGenres=Array.from(new Set(findGenres))
-    return allGenres
-}
-
-const chooseMovieGenre= (value)=>{
-    let choosenGenre= allMovies.filter(movie=>{
-        return movie.genres.includes(value)
-    })
-    return choosenGenre
-}
 
 //Fetch inputtypes
 const findMovieInput = document.querySelector("#findMovieInput");
