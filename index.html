@@ -33,24 +33,7 @@
           <button class="filter" onclick="showYearSelection()">
             Årstall <img src="./assets/arrowDownIcon.png" class="filterIcon">
           </button>
-          <form class="filterForm" id="selectYearsForm">
-            <div class="yearContainer">
-              <input type="checkbox" class="checkbox" id="year2020" name="year2020" value="2020">
-              <label for="year2020">2020</label>
-            </div>
-            <div class="yearContainer">
-              <input type="checkbox" class="checkbox" id="year2021" name="year2021" value="2021">
-              <label for="year2020">2021</label>
-            </div>
-            <div class="yearContainer">
-              <input type="checkbox" class="checkbox" id="year2022" name="year2022" value="2022">
-              <label for="year2020">2022</label>
-            </div>
-            <div class="yearContainer">
-              <input type="checkbox" class="checkbox" id="year2023" name="year2023" value="2023">
-              <label for="year2020">2023</label>
-            </div>
-          </form>
+          <form class="filterForm" id="selectYearsForm"></form>
         </div>
         <div class="selectYearContainer">
           <button class="filter" onclick="showGenreSelection()">
@@ -86,6 +69,7 @@
       </div>
       <button id="randomMovieBtn">Velg en tilfeldig film</button>
     </div>
+    <div id="overlay">Overlay</div>
     <div id="movielistContainer"></div>
     <!--
     <div class="buttons">
