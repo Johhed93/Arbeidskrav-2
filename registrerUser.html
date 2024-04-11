@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mitt filmbibliotek</title>
     <link rel="stylesheet" href="./CSS/global.css" />
-    <link rel="stylesheet" href="./CSS/myList.css" />
+    <link rel="stylesheet" href="./CSS/registrerUser.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -29,9 +29,18 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <h1>Min Liste</h1>
-      <ul id="myWatchList"></ul>
-    </main>
+  <main>
+    <h1>Registrer bruker</h1>
+    <section class="registrerContainer">
+    <div class="registrerInput">
+      <input id="newUsernameInput" name="newUsernameInput" type="text" placeholder="Skriv inn brukernavn">
+
+      <input id="newPasswordInput" name="newPasswordInput" type="text" placeholder="Velg passord">
+    </div>
+    <div class="buttonSection">
+      <button type="submit" id="submitNewUsername">Opprett ny konto</button>
+    </div>
+    </section>
+  </main>
   </body>
 </html>
