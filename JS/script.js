@@ -269,8 +269,6 @@ const overlay = document.querySelector("#overlay");
 
 //Fetch knapper
 const randomMovieBtn = document.querySelector("#randomMovieBtn");
-const addMovieBtn = document.querySelector("#addMovieBtn");
-const deleteMovieBtn = document.querySelector("#deleteMovieBtn");
 const sortMovieGenre = document.querySelector("#sortMovieGenre");
 
 //Find movie
@@ -292,7 +290,7 @@ const findMovie = () => {
 
 findMovieInput.addEventListener("input", findMovie);
 
-//Add movie to movie library
+
 
 //Choose random movie function
 const randomMovie = () => {
@@ -395,18 +393,45 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
-  //addButton to movielist
-  const addBtn = document.createElement("button");
+ 
+  divTitleContainer.appendChild(titleText);
+  overlay.appendChild(divTitleContainer);
+  divTitleContainer.appendChild(yearText);
+  divTitleContainer.appendChild(movieDescripton);
+  overlay.appendChild(image);
+  divTitleContainer.appendChild(actors);
+  overlay.appendChild(closeBtn);
 
-  addBtn.style.display = "flex";
-  addBtn.style.alignItems = "center";
-  addBtn.style.padding = "2px";
-  addBtn.style.paddingInline = "20px";
-  addBtn.style.position = "absolute";
-  addBtn.style.bottom = "10px";
-  addBtn.style.left = "10px";
-  addBtn.style.borderRadius = "15px";
-  addBtn.style.backgroundColor = "#FF9898";
+  movielistContainer.appendChild(overlay);
+
+  closeBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+  });
+
+
+
+
+
+  if (loggedIn()) {
+
+
+    const addBtn = document.createElement("button");
+
+    addBtn.addEventListener("click", () => {
+      addToWatchList(movie);
+      showAddedStatus();
+     
+      overlay.style.display = "none";
+    });
+    addBtn.style.display = "flex";
+    addBtn.style.alignItems = "center";
+    addBtn.style.padding = "2px";
+    addBtn.style.paddingInline = "20px";
+    addBtn.style.position = "absolute";
+    addBtn.style.bottom = "10px";
+    addBtn.style.left = "10px";
+    addBtn.style.borderRadius = "15px";
+    addBtn.style.backgroundColor = "#FF9898";
 
   const addBtnImage = document.createElement("img");
   addBtnImage.src = "./assets/addToListIcon.png";
@@ -415,26 +440,13 @@ const showSpecificMovie = (movie) => {
   addBtn.appendChild(addBtnImage);
 
   addBtn.appendChild(document.createTextNode("Legg til i ønsket sett"));
-
-  divTitleContainer.appendChild(titleText);
-  overlay.appendChild(divTitleContainer);
-  divTitleContainer.appendChild(yearText);
-  divTitleContainer.appendChild(movieDescripton);
-  overlay.appendChild(image);
-  divTitleContainer.appendChild(actors);
-  overlay.appendChild(closeBtn);
   overlay.appendChild(addBtn);
-  movielistContainer.appendChild(overlay);
+}
 
-  closeBtn.addEventListener("click", () => {
-    overlay.style.display = "none";
-  });
+};
 
-  addBtn.addEventListener("click", () => {
-    addToWatchList(movie);
-    overlay.style.display = "none";
-    showAddedStatus();
-  });
+
+
 
   const showAddedStatus = () => {
     const addedMessage = document.getElementById("addedMessage");
@@ -465,4 +477,5 @@ const showSpecificMovie = (movie) => {
     };
     addedMessage.animate(showAddedMessasge, showMessageTiming);
   };
-};
+
+
