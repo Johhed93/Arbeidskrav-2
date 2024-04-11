@@ -453,6 +453,25 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
+
+  //Random movie button in overlay
+  const randomMovieBtn = document.createElement('button');
+  randomMovieBtn.textContent = 'Tilfeldig film';
+  randomMovieBtn.style.padding = "2px";
+  randomMovieBtn.style.paddingInline = "20px";
+  randomMovieBtn.style.position = "absolute";
+  randomMovieBtn.style.bottom = "10px";
+  randomMovieBtn.style.left = "230px";
+  randomMovieBtn.style.borderRadius = "15px";
+  randomMovieBtn.style.backgroundColor = "#FF9898";
+  randomMovieBtn.style.width = "150px";
+  randomMovieBtn.style.height = "40px";
+
+  randomMovieBtn.addEventListener("click", () => {
+    overlay.innerHTML = "";
+    showSpecificMovie(randomMovie());
+  });
+
   divTitleContainer.appendChild(titleText);
   overlay.appendChild(divTitleContainer);
   divTitleContainer.appendChild(yearText);
@@ -460,12 +479,16 @@ const showSpecificMovie = (movie) => {
   overlay.appendChild(image);
   divTitleContainer.appendChild(actors);
   overlay.appendChild(closeBtn);
+  overlay.appendChild(randomMovieBtn);
 
   movielistContainer.appendChild(overlay);
 
   closeBtn.addEventListener("click", () => {
     overlay.style.display = "none";
   });
+
+
+ 
 
   if (loggedIn()) {
     const addBtn = document.createElement("button");
@@ -474,8 +497,9 @@ const showSpecificMovie = (movie) => {
       addToWatchList(movie);
       showAddedStatus();
 
-      overlay.style.display = "none";
+    overlay.style.display = "none";
     });
+
     addBtn.style.display = "flex";
     addBtn.style.alignItems = "center";
     addBtn.style.padding = "2px";
