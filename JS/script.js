@@ -322,8 +322,6 @@ const checkIfMovieExist=async(object)=>{
       headers:getHeaders(API_KEY)
     })
     const data=await res.json();
-    console.log(`${USERBASE_URL}/${getLoggedInUser()}`)
-    console.log(data)
     return data.myMovies.some(movie=>movie.title===object.title)
 
   }catch(error){
@@ -341,7 +339,6 @@ const addToWatchList = async (object) => {
       headers:getHeaders(API_KEY)
     })
     const data= await res.json();
-    console.log(data)
     user=data
   }
   catch(error){
