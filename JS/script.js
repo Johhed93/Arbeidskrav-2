@@ -234,7 +234,7 @@ const saveData = () => {
   if (localStorage.getItem("data")) {
     return;
   } else {
-    localStorage.setItem("data", JSON.stringify([])); //Lagrer innhold i movielist
+    localStorage.setItem("data", JSON.stringify([])); //Save content in movielist
   }
 };
 const addToWatchList = (object) => {
@@ -312,7 +312,7 @@ const showSpecificMovie = (movie) => {
   actors.style.padding = "15px";
   actors.style.fontSize = "0.8rem";
 
-  //Knapp som lukker vinduet
+  //Close window button
   const closeBtn = document.createElement("button");
   closeBtn.innerHTML = '<i class="fa-solid fa-x"></i>';
   closeBtn.style.padding = "10px";
@@ -320,7 +320,10 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
-  //Knapp som legger til film i min liste
+
+
+  
+  //addButton to movielist
   const addBtn = document.createElement("button");
 
   addBtn.style.display = "flex";
@@ -365,7 +368,7 @@ const showSpecificMovie = (movie) => {
 
 //Create newUser 
 
-// Inloggningsfunksjoner sessionstorage oppsett
+//Login functions and sessionstorage setup
 const setLoginstatus = (status) => {
   sessionStorage.setItem("loggedIn", status ? "true" : "false");
 };
@@ -379,7 +382,7 @@ const getLoggedInUser= ()=>{
   return sessionStorage.setItem("loggedInUser", JSON.stringify(id))
  }
  
- // Verifiering av brukernavn samt pålogging 
+ //Verification username and login
  const ifUsernameExist = async(username)=>{
   try{
     const res= await fetch(USERBASE_URL);
