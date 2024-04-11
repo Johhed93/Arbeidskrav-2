@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mitt filmbibliotek</title>
     <link rel="stylesheet" href="./CSS/global.css" />
-    <link rel="stylesheet" href="./CSS/myList.css" />
+    <link rel="stylesheet" href="./CSS/login.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -13,7 +13,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script src="./JS/myList.js" defer></script>
+    <script src="./JS/script.js" defer></script>
   </head>
   <body>
     <header>
@@ -29,9 +29,18 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <h1>Min Liste</h1>
-      <ul id="myWatchList"></ul>
-    </main>
+  <main>
+    <h1>Login bruker</h1>
+    <section class="loginContainer">
+    <div class="loginInput">
+      <input id="usernameInput" name="usernameInput" type="text" placeholder="Skriv inn brukernavn">
+
+      <input id="passwordInput" name="passwordInput" type="text" placeholder="Skriv inn passord">
+    </div>
+    <div class="buttonSection">
+      <button type="submit" id="loginBtn">Logg inn</button>
+    </div>
+    </section>
+  </main>
   </body>
 </html>
