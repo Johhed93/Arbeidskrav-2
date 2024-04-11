@@ -98,43 +98,112 @@ const showReleaseYear = () => {
   const allYears = allMovies.map((movie) => movie.year);
   let uniqueYears = Array.from(new Set(allYears));
   uniqueYears.sort();
+  uniqueYears.unshift("Alle år");
   uniqueYears.forEach((year) => {
-    displayReleaseYear(year);
+    displayFilteredMovies(year, "years");
   });
 };
 
-const displayReleaseYear = (year) => {
+let b = 0;
+let c = 0;
+
+const displayFilteredMovies = (inpValue, type) => {
   const yearContainer = document.createElement("div");
   const yearInput = document.createElement("input");
   const yearLabel = document.createElement("label");
   yearContainer.classList.add("yearContainer");
   yearInput.type = "radio";
-  yearInput.id = "year" + year;
-  yearInput.name = "year";
-  yearInput.value = year;
-  yearInput.addEventListener("click", () => {
-    const yearRadioBtn = document.getElementById(`year${year}`);
-    if (yearRadioBtn.checked == true) {
-      let filteredMovies = chooseReleaseYear(yearRadioBtn.value);
-      movielistContainer.innerHTML = "";
-      filteredMovies.forEach((movie) => showMovies(movie));
+  yearInput.id = "filter" + inpValue;
+  yearInput.class = type + "RadioBtn";
+  yearInput.name = "filter" + type;
+  yearInput.value = inpValue;
+  if (type === "years") {
+    if (b === 0) {
+      yearInput.checked = true;
+      b += 1;
     }
+  } else {
+    if (c === 0) {
+      yearInput.checked = true;
+      c += 1;
+    }
+  }
+  yearInput.addEventListener("click", () => {
+    let radioYearBtns = document.getElementsByName("filteryears");
+    let radioYearBtnsArray = Array.from(radioYearBtns);
+    let radioGenreBtns = document.getElementsByName("filtergenres");
+    let radioGenreBtnsArray = Array.from(radioGenreBtns);
+    radioGenreBtnsArray.forEach((genreRadio) => {
+      if (genreRadio.checked === true) {
+        if (radioYearBtnsArray.length === 0) {
+          if (genreRadio.value === "Alle sjangre") {
+            movielistContainer.innerHTML = "";
+            allMovies.forEach((movie) => showMovies(movie));
+          } else {
+            let filteredMovies = chooseMovieGenre(genreRadio.value);
+            movielistContainer.innerHTML = "";
+            filteredMovies.forEach((movie) => showMovies(movie));
+          }
+        }
+      }
+    });
+    radioYearBtnsArray.forEach((yearRadio) => {
+      if (yearRadio.checked === true) {
+        if (radioGenreBtnsArray.length === 0) {
+          if (yearRadio.value === "Alle år") {
+            movielistContainer.innerHTML = "";
+            allMovies.forEach((movie) => showMovies(movie));
+          } else {
+            let filteredMovies = chooseReleaseYear(yearRadio.value);
+            movielistContainer.innerHTML = "";
+            filteredMovies.forEach((movie) => showMovies(movie));
+          }
+        } else if (yearRadio.value === "Alle år") {
+          radioGenreBtnsArray.forEach((genreRadio) => {
+            if (genreRadio.checked === true) {
+              if (genreRadio.value === "Alle sjangre") {
+                movielistContainer.innerHTML = "";
+                allMovies.forEach((movie) => showMovies(movie));
+              } else {
+                let choosenGenre = allMovies.filter((movie) => {
+                  return movie.genres.includes(genreRadio.value);
+                });
+                movielistContainer.innerHTML = "";
+                choosenGenre.forEach((movie) => showMovies(movie));
+              }
+            }
+          });
+        } else {
+          let filteredMovies = chooseReleaseYear(yearRadio.value);
+          radioGenreBtnsArray.forEach((genreRadio) => {
+            if (genreRadio.checked === true) {
+              if (genreRadio.value === "Alle sjangre") {
+                movielistContainer.innerHTML = "";
+                filteredMovies.forEach((movie) => showMovies(movie));
+              } else {
+                let choosenGenre = filteredMovies.filter((movie) => {
+                  return movie.genres.includes(genreRadio.value);
+                });
+                movielistContainer.innerHTML = "";
+                choosenGenre.forEach((movie) => showMovies(movie));
+              }
+            }
+          });
+        }
+      }
+    });
   });
   yearInput.classList.add("radio");
-  yearLabel.for = "year" + year;
-  yearLabel.innerHTML = year;
+  yearLabel.for = "filter" + inpValue;
+  yearLabel.innerHTML = inpValue;
   yearContainer.appendChild(yearInput);
   yearContainer.appendChild(yearLabel);
-  selectYearsForm.appendChild(yearContainer);
-};
-
-const yearAllBtn = document.getElementById("yearAllBtn");
-yearAllBtn.addEventListener("click", () => {
-  if (yearAllBtn.checked == true) {
-    movielistContainer.innerHTML = "";
-    allMovies.forEach((movie) => showMovies(movie));
+  if (type === "years") {
+    selectYearsForm.appendChild(yearContainer);
+  } else if (type === "genres") {
+    selectGenresForm.appendChild(yearContainer);
   }
-});
+};
 
 const chooseReleaseYear = (value) => {
   value = Number(value);
@@ -144,8 +213,13 @@ const chooseReleaseYear = (value) => {
 // Filter Genre
 const selectGenresForm = document.getElementById("selectGenresForm");
 selectGenresForm.style.display = "none";
+let j = 0;
 const showGenreSelection = () => {
   if (selectGenresForm.style.display == "none") {
+    if (j === 0) {
+      top10MovieGenre();
+      j += 1;
+    }
     selectGenresForm.style.display = "flex";
   } else {
     selectGenresForm.style.display = "none";
@@ -215,7 +289,11 @@ const top10MovieGenre = () => {
   sortedGenres.forEach((genre) => {
     genre.splice(1);
   });
-  return sortedGenres;
+  let mostCommonGenres = [].concat.apply([], sortedGenres);
+  mostCommonGenres.unshift("Alle sjangre");
+  mostCommonGenres.forEach((genre) => {
+    displayFilteredMovies(genre, "genres");
+  });
 };
 
 const chooseMovieGenre = (value) => {

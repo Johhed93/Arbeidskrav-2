@@ -84,6 +84,10 @@ button:hover {
   padding: 10px 27px 10px 10px;
 }
 
+#filterIconGenre {
+    margin-left: 105px;
+}
+
 .yearContainer {
   display: flex;
   margin: 5px;
