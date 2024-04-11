@@ -360,6 +360,11 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 };
+
+
+
+//Create newUser 
+
 // Inloggningsfunksjoner sessionstorage oppsett
 const setLoginstatus = (status) => {
   sessionStorage.setItem("loggedIn", status ? "true" : "false");

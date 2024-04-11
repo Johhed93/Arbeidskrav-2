@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 35px;
+}
+
+.loginContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 50rem;
+  height: auto;
+}
+
+.loginInput {
+    display: flex;
+    flex-flow:  column wrap;
+    justify-content: center;
+    background-color: #A19CE8;
+    margin: 15px auto;
+    padding: 15px;
+    gap: 15px;
+    width: 20rem;
+    
+}
+
+#usernameInput::placeholder,
+#passwordInput::placeholder {
+    color: black;
+    text-align: center;
+}
+
+.buttonSection {
+    display: flex;
+    flex-flow: column wrap;
+    align-self: center;
+    padding: 15px;
+    
+}
+
+button {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #A19CE8;
+}

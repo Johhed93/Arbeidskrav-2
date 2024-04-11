@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial Rounded MT, sans-serif;
+  color: black;
+}
+
+header {
+  width: 100%;
+  background-color: #a19ce8;
+  padding: 25px;
+  border: 1px solid gray;
+  margin-bottom: 50px;
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.headerTitle {
+  border: none;
+  font-size: 1.8rem;
+}
+
+.search-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: start;
+  margin: 0 3% 70px 3%;
+}
+
+#findMovieInput {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 20px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.filterWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.filter {
+  padding: 10px;
+  font-size: 1.1rem;
+  font-family: Arial Rounded MT, sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.filterIcon {
+  height: 15px;
+  margin-left: 40px;
+}
+
+.filterForm {
+  position: absolute;
+  flex-flow: column nowrap;
+  font-size: 1.1rem;
+  font-family: Arial Rounded MT, sans-serif;
+  border: 1px solid black;
+  background-color: rgb(244, 244, 244);
+  padding: 10px 27px 10px 10px;
+}
+
+.yearContainer {
+  display: flex;
+  margin: 5px;
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+#randomMovieBtn {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: Arial Rounded MT, sans-serif;
+  border-radius: 13px;
+  background-color: #ffe97a;
+}
+
+#movielistContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+  margin: 10px;
+}
+
+#overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: grey;
+  color: black;
+  top: 50%;
+  right: 50%;
+  width: 60rem;
+  height: auto;
+  transform: translate(50%, -50%);
+  display: none;
+  padding: 30px;
+}
