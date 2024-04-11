@@ -5,7 +5,14 @@ const BASE_URL =
 
 const USERBASE_URL= "https://crudapi.co.uk/api/v1/user"
 const API_KEY= "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ"
-const authorization= {"Authorization": `Bearer ${API_KEY}`};
+
+const getHeaders = (apiKey) => {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${apiKey}`
+  };
+};
+
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -382,32 +389,37 @@ const getLoggedInUser= ()=>{
  // Verifiering av brukernavn samt pålogging 
  const ifUsernameExist = async(username)=>{
   try{
-    const res= await fetch(USERBASE_URL);
+    const res= await fetch(USERBASE_URL,{
+      method: "GET",
+      headers: getHeaders(API_KEY)
+    });
     if(!res.ok){
       throw new Error("Något er feil i databasen ved verifiering av bruker");
     }
     const data=await res.json();
-    return data.some(user=>user.username===username)
+    return data.items.some(user=>user.username===username)
   }catch(error){
     console.error("Något blev fel i verifiering av brukernavn")
   }
  }
+
  const verifyLogin= async(username, password)=>{
  try{
-  const res= await fetch(USERBASE_URL);
+  const res= await fetch(USERBASE_URL,{
+    method: "GET",
+    headers: getHeaders(API_KEY)
+  });
   if(!res.ok){
     throw new Error("Något blev fel i fetch til verifiering av login")
   }
   const data= await res.json();
-  return data.some(user=> user.username===username && user.password===password)
+  return data.items.some(user=> user.username===username && user.password===password)
 
  }catch(error){
   console.error("Kunde inte verifiera login", error)
  }
  }
-
-
-
+ 
  const userLogin = async()=>{
   const usernameInput= document.querySelector("#userNameInput").value;
   const passwordInput= document.querySelector("passwordInput").value;
@@ -424,4 +436,54 @@ const getLoggedInUser= ()=>{
   }catch(error){
     console.error("Något blev feil i verifiering av login")
   }
- }
+ 
+}
+const fetchUserID=async(username)=>{
+  try{
+    const res= await fetch(USERBASE_URL,{
+      method:"GET",
+      headers:getHeaders(API_KEY)
+    })
+    if(!res.ok){
+      throw new Error("Status meldingen", res.status)
+    }
+    const data= res.json();
+    const specificUser= data.items.find(user=> user.username===username);
+    return specificUser._uuid
+  }catch(error){
+    console.error("Fel med att fetcha ID till brukern")
+  }
+}
+//De hær två ær test
+const getInformation=async()=>{
+  try{
+    const res= await fetch(USERBASE_URL,{
+      method: "GET",
+      headers: getHeaders(API_KEY)
+    });
+    if(!res.ok){
+      throw new Error("Något blev fel i fetch til verifiering av login")
+    }
+    const data= await res.json();
+    console.log(data.items)
+  }
+  catch{
+    console.error("EError")
+  }
+}
+const post= async(usern, password)=>{
+  const user= [{
+    username:usern,
+    password:password,
+    myPost:[]
+  }]
+  try{
+    const res= await fetch(USERBASE_URL,{
+      method:"POST",
+      headers:getHeaders(API_KEY),
+      body: JSON.stringify(user)
+    })
+  }catch{
+   console.error("Error")
+  }
+}
