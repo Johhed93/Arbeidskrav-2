@@ -74,6 +74,10 @@ button:hover {
   margin-left: 40px;
 }
 
+#filterIconGenre {
+  margin-left: 105px;
+}
+
 .filterForm {
   position: absolute;
   flex-flow: column nowrap;
