@@ -3,9 +3,9 @@
 const BASE_URL =
   "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
 
-const USERBASE_URL= "https://crudapi.co.uk/api/v1/probe"
-const API_KEY= "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ"
-const headers= {"Authorization": `Bearer ${API_KEY}`};
+const USERBASE_URL = "https://crudapi.co.uk/api/v1/probe";
+const API_KEY = "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ";
+const headers = { Authorization: `Bearer ${API_KEY}` };
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -81,7 +81,7 @@ const showMovies = (movie) => {
   movielistContainer.appendChild(divContainer);
 };
 
-//Filter release year
+//Reveal release year filter
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 let i = 0;
@@ -108,6 +108,62 @@ const showReleaseYear = () => {
   });
 };
 
+// Choose release year
+const chooseReleaseYear = (value) => {
+    value = Number(value);
+    return allMovies.filter((movie) => movie.year === value);
+  };
+
+//Reveal genre filter
+const selectGenresForm = document.getElementById("selectGenresForm");
+selectGenresForm.style.display = "none";
+let j = 0;
+const showGenreSelection = () => {
+  if (selectGenresForm.style.display == "none") {
+    if (j === 0) {
+      top10MovieGenre();
+      j += 1;
+    }
+    selectGenresForm.style.display = "flex";
+  } else {
+    selectGenresForm.style.display = "none";
+  }
+};
+
+// Sort movie genre
+const top10MovieGenre = () => {
+  const findGenres = allMovies.flatMap((movie) => movie.genres);
+  let genreObject = [];
+  findGenres.forEach((genre) => {
+    if (!genreObject[genre]) {
+      genreObject[genre] = [];
+    }
+    genreObject[genre].push(genre);
+  });
+
+  let sortedGenres = Object.entries(genreObject).sort((a, b) => {
+    return b[1].length - a[1].length;
+  });
+  sortedGenres.splice(10);
+  sortedGenres.forEach((genre) => {
+    genre.splice(1);
+  });
+  let mostCommonGenres = [].concat.apply([], sortedGenres);
+  mostCommonGenres.unshift("Alle sjangre");
+  mostCommonGenres.forEach((genre) => {
+    displayFilteredMovies(genre, "genres");
+  });
+};
+
+//Choose movie genre
+const chooseMovieGenre = (value) => {
+  let choosenGenre = allMovies.filter((movie) => {
+    return movie.genres.includes(value);
+  });
+  return choosenGenre;
+};
+
+//Show filters and filter movies
 let b = 0;
 let c = 0;
 
@@ -209,31 +265,6 @@ const displayFilteredMovies = (inpValue, type) => {
   }
 };
 
-const chooseReleaseYear = (value) => {
-  value = Number(value);
-  return allMovies.filter((movie) => movie.year === value);
-};
-
-// Filter Genre
-const selectGenresForm = document.getElementById("selectGenresForm");
-selectGenresForm.style.display = "none";
-let j = 0;
-const showGenreSelection = () => {
-  if (selectGenresForm.style.display == "none") {
-    if (j === 0) {
-      top10MovieGenre();
-      j += 1;
-    }
-    selectGenresForm.style.display = "flex";
-  } else {
-    selectGenresForm.style.display = "none";
-  }
-};
-
-//Fetch inputtypes
-const findMovieInput = document.querySelector("#findMovieInput");
-const rangeYearInput = document.querySelector("#rangeYear");
-
 //Fetch overlay
 const overlay = document.querySelector("#overlay");
 
@@ -243,10 +274,9 @@ const addMovieBtn = document.querySelector("#addMovieBtn");
 const deleteMovieBtn = document.querySelector("#deleteMovieBtn");
 const sortMovieGenre = document.querySelector("#sortMovieGenre");
 
-//Fetch rangeYearData
-const rangeYearData = document.querySelector("#rangeYearData");
-
 //Find movie
+const findMovieInput = document.querySelector("#findMovieInput");
+
 const findMovie = () => {
   const inputValue = findMovieInput.value.toLowerCase();
   const foundMovies = allMovies.filter((movie) =>
@@ -274,38 +304,6 @@ randomMovieBtn.addEventListener("click", () => {
   overlay.innerHTML = "";
   showSpecificMovie(randomMovie());
 });
-
-//Choose movie genre
-const top10MovieGenre = () => {
-  const findGenres = allMovies.flatMap((movie) => movie.genres);
-  let genreObject = [];
-  findGenres.forEach((genre) => {
-    if (!genreObject[genre]) {
-      genreObject[genre] = [];
-    }
-    genreObject[genre].push(genre);
-  });
-
-  let sortedGenres = Object.entries(genreObject).sort((a, b) => {
-    return b[1].length - a[1].length;
-  });
-  sortedGenres.splice(10);
-  sortedGenres.forEach((genre) => {
-    genre.splice(1);
-  });
-  let mostCommonGenres = [].concat.apply([], sortedGenres);
-  mostCommonGenres.unshift("Alle sjangre");
-  mostCommonGenres.forEach((genre) => {
-    displayFilteredMovies(genre, "genres");
-  });
-};
-
-const chooseMovieGenre = (value) => {
-  let choosenGenre = allMovies.filter((movie) => {
-    return movie.genres.includes(value);
-  });
-  return choosenGenre;
-};
 
 //Local storage
 const saveData = () => {
@@ -439,9 +437,7 @@ const showSpecificMovie = (movie) => {
   });
 };
 
-
-
-//Create newUser 
+//Create newUser
 
 // Inloggningsfunksjoner sessionstorage oppsett
 const setLoginstatus = (status) => {
@@ -449,57 +445,56 @@ const setLoginstatus = (status) => {
 };
 const loggedIn = () => {
   return sessionStorage.getItem("loggedIn") === "true";
-}; 
-const getLoggedInUser= ()=>{
+};
+const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
- }
- const setLoggedInUser=(id)=>{
-  return sessionStorage.setItem("loggedInUser", JSON.stringify(id))
- }
- 
- // Verifiering av brukernavn samt pålogging 
- const ifUsernameExist = async(username)=>{
-  try{
-    const res= await fetch(USERBASE_URL);
-    if(!res.ok){
+};
+const setLoggedInUser = (id) => {
+  return sessionStorage.setItem("loggedInUser", JSON.stringify(id));
+};
+
+// Verifiering av brukernavn samt pålogging
+const ifUsernameExist = async (username) => {
+  try {
+    const res = await fetch(USERBASE_URL);
+    if (!res.ok) {
       throw new Error("Något er feil i databasen ved verifiering av bruker");
     }
-    const data=await res.json();
-    return data.some(user=>user.username===username)
-  }catch(error){
-    console.error("Något blev fel i verifiering av brukernavn")
+    const data = await res.json();
+    return data.some((user) => user.username === username);
+  } catch (error) {
+    console.error("Något blev fel i verifiering av brukernavn");
   }
- }
- const verifyLogin= async(username, password)=>{
- try{
-  const res= await fetch(USERBASE_URL);
-  if(!res.ok){
-    throw new Error("Något blev fel i fetch til verifiering av login")
+};
+const verifyLogin = async (username, password) => {
+  try {
+    const res = await fetch(USERBASE_URL);
+    if (!res.ok) {
+      throw new Error("Något blev fel i fetch til verifiering av login");
+    }
+    const data = await res.json();
+    return data.some(
+      (user) => user.username === username && user.password === password
+    );
+  } catch (error) {
+    console.error("Kunde inte verifiera login", error);
   }
-  const data= await res.json();
-  return data.some(user=> user.username===username && user.password===password)
+};
 
- }catch(error){
-  console.error("Kunde inte verifiera login", error)
- }
- }
+const userLogin = async () => {
+  const usernameInput = document.querySelector("#userNameInput").value;
+  const passwordInput = document.querySelector("passwordInput").value;
+  try {
+    if (!(await verifyLogin(usernameInput, passwordInput))) {
+      console.log("Feil brukernavn/passord");
+    } else {
+      setLoginstatus(true);
+      const userID = await fetchUserID(usernameInput);
+      sessionStorage.setItem("loggedInUser", JSON.stringify(userID));
 
-
-
- const userLogin = async()=>{
-  const usernameInput= document.querySelector("#userNameInput").value;
-  const passwordInput= document.querySelector("passwordInput").value;
-  try{
-   if(!await verifyLogin(usernameInput, passwordInput)){
-    console.log("Feil brukernavn/passord")
-   }else{
-    setLoginstatus(true);
-   const userID= await fetchUserID(usernameInput);
-   sessionStorage.setItem("loggedInUser", JSON.stringify(userID));
-   
-   userLogin()
+      userLogin();
+    }
+  } catch (error) {
+    console.error("Något blev feil i verifiering av login");
   }
-  }catch(error){
-    console.error("Något blev feil i verifiering av login")
-  }
- }
+};
