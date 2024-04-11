@@ -449,12 +449,14 @@ const showSpecificMovie = (movie) => {
     infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
     infoText.style.fontSize = "1rem";
     addedMessage.appendChild(infoText);
+    //keyframes
     const showAddedMessasge = [
       { opacity: "0", left: "0px" },
       { opacity: "1", left: "30px", offset: 0.15 },
       { opacity: "1", left: "30px", offset: 0.93 },
       { opacity: "0", left: "30px"},
     ];
+    //animation options
     const showMessageTiming = {
       duration: 6000,
       delay: 500
