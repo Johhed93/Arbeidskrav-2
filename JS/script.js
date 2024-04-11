@@ -78,7 +78,7 @@ const showMovies = (movie) => {
   movielistContainer.appendChild(divContainer);
 };
 
-//Filter release year
+//Reveal release year filter
 const selectYearsForm = document.getElementById("selectYearsForm");
 selectYearsForm.style.display = "none";
 let i = 0;
@@ -105,6 +105,62 @@ const showReleaseYear = () => {
   });
 };
 
+// Choose release year
+const chooseReleaseYear = (value) => {
+    value = Number(value);
+    return allMovies.filter((movie) => movie.year === value);
+  };
+
+//Reveal genre filter
+const selectGenresForm = document.getElementById("selectGenresForm");
+selectGenresForm.style.display = "none";
+let j = 0;
+const showGenreSelection = () => {
+  if (selectGenresForm.style.display == "none") {
+    if (j === 0) {
+      top10MovieGenre();
+      j += 1;
+    }
+    selectGenresForm.style.display = "flex";
+  } else {
+    selectGenresForm.style.display = "none";
+  }
+};
+
+// Sort movie genre
+const top10MovieGenre = () => {
+  const findGenres = allMovies.flatMap((movie) => movie.genres);
+  let genreObject = [];
+  findGenres.forEach((genre) => {
+    if (!genreObject[genre]) {
+      genreObject[genre] = [];
+    }
+    genreObject[genre].push(genre);
+  });
+
+  let sortedGenres = Object.entries(genreObject).sort((a, b) => {
+    return b[1].length - a[1].length;
+  });
+  sortedGenres.splice(10);
+  sortedGenres.forEach((genre) => {
+    genre.splice(1);
+  });
+  let mostCommonGenres = [].concat.apply([], sortedGenres);
+  mostCommonGenres.unshift("Alle sjangre");
+  mostCommonGenres.forEach((genre) => {
+    displayFilteredMovies(genre, "genres");
+  });
+};
+
+//Choose movie genre
+const chooseMovieGenre = (value) => {
+  let choosenGenre = allMovies.filter((movie) => {
+    return movie.genres.includes(value);
+  });
+  return choosenGenre;
+};
+
+//Show filters and filter movies
 let b = 0;
 let c = 0;
 
@@ -206,31 +262,6 @@ const displayFilteredMovies = (inpValue, type) => {
   }
 };
 
-const chooseReleaseYear = (value) => {
-  value = Number(value);
-  return allMovies.filter((movie) => movie.year === value);
-};
-
-// Filter Genre
-const selectGenresForm = document.getElementById("selectGenresForm");
-selectGenresForm.style.display = "none";
-let j = 0;
-const showGenreSelection = () => {
-  if (selectGenresForm.style.display == "none") {
-    if (j === 0) {
-      top10MovieGenre();
-      j += 1;
-    }
-    selectGenresForm.style.display = "flex";
-  } else {
-    selectGenresForm.style.display = "none";
-  }
-};
-
-//Fetch inputtypes
-const findMovieInput = document.querySelector("#findMovieInput");
-const rangeYearInput = document.querySelector("#rangeYear");
-
 //Fetch overlay
 const overlay = document.querySelector("#overlay");
 
@@ -240,10 +271,9 @@ const addMovieBtn = document.querySelector("#addMovieBtn");
 const deleteMovieBtn = document.querySelector("#deleteMovieBtn");
 const sortMovieGenre = document.querySelector("#sortMovieGenre");
 
-//Fetch rangeYearData
-const rangeYearData = document.querySelector("#rangeYearData");
-
 //Find movie
+const findMovieInput = document.querySelector("#findMovieInput");
+
 const findMovie = () => {
   const inputValue = findMovieInput.value.toLowerCase();
   const foundMovies = allMovies.filter((movie) =>
@@ -271,38 +301,6 @@ randomMovieBtn.addEventListener("click", () => {
   overlay.innerHTML = "";
   showSpecificMovie(randomMovie());
 });
-
-//Choose movie genre
-const top10MovieGenre = () => {
-  const findGenres = allMovies.flatMap((movie) => movie.genres);
-  let genreObject = [];
-  findGenres.forEach((genre) => {
-    if (!genreObject[genre]) {
-      genreObject[genre] = [];
-    }
-    genreObject[genre].push(genre);
-  });
-
-  let sortedGenres = Object.entries(genreObject).sort((a, b) => {
-    return b[1].length - a[1].length;
-  });
-  sortedGenres.splice(10);
-  sortedGenres.forEach((genre) => {
-    genre.splice(1);
-  });
-  let mostCommonGenres = [].concat.apply([], sortedGenres);
-  mostCommonGenres.unshift("Alle sjangre");
-  mostCommonGenres.forEach((genre) => {
-    displayFilteredMovies(genre, "genres");
-  });
-};
-
-const chooseMovieGenre = (value) => {
-  let choosenGenre = allMovies.filter((movie) => {
-    return movie.genres.includes(value);
-  });
-  return choosenGenre;
-};
 
 //Local storage
 const saveData = () => {
