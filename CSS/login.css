@@ -13,8 +13,8 @@ h1 {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
-
   width: 50rem;
   height: auto;
 }
@@ -31,13 +31,7 @@ h1 {
     
 }
 
-
-
-#usernameInput::placeholder {
-    color: black;
-    text-align: center;
-}
-
+#usernameInput::placeholder,
 #passwordInput::placeholder {
     color: black;
     text-align: center;
