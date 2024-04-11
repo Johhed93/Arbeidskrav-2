@@ -22,6 +22,11 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
+//Logged in
+const loggedIn = () => {
+    return sessionStorage.getItem("loggedIn") === "true";
+  };
+
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
 const myWatchList = document.querySelector("#myWatchList");
