@@ -1,37 +1,88 @@
-const deleteData = (object) => {
-  let watchList = JSON.parse(localStorage.getItem("data"));
-  console.log(watchList);
-  let index = watchList.findIndex((movie) => movie.title === object.title);
-  console.log(index);
-  watchList.splice(index, 1);
-  localStorage.setItem("data", JSON.stringify(watchList));
-
-  showData();
+const USERBASE_URL = "https://crudapi.co.uk/api/v1/user";
+const API_KEY = "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ";
+//Hente från session storage
+const getLoggedInUser = () => {
+  return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
+const loggedIn = () => {
+  return sessionStorage.getItem("loggedIn") === "true";
+};
+const getHeaders = (apiKey) => {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  };
+};
+
+
+//Hente data/Radera i myMovies arrayen
 const myWatchList = document.querySelector("#myWatchList");
-const showData = () => {
-  myWatchList.innerHTML = "";
-  let data = JSON.parse(localStorage.getItem("data"));
 
-  data.forEach((movie) => {
-    showMyMovies(movie);
-  });
+const getData = async() => {
+  myWatchList.innerHTML="";
+  if(loggedIn()){
+    try{
+      const res=await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+        method:"GET",
+        headers:getHeaders(API_KEY)
+      })
+      const data= await res.json();
+      
+    data.myMovies.forEach((movie) => {
+      showMyMovies(movie);
+    });
+  }
+    catch(error){
+    console.error("Något blev fel med henting av mine filmer", error)
+    }
+  }
+  else{
+    console.log("Här va det tomt")
+  }
 };
+const deleteData = async(object) => {
+   let user;
+   try{
+    const res=await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+      method:"GET",
+      headers:getHeaders(API_KEY)
+    })
+    if(!res.ok){
+      throw new Error("Något blev feil hos databasen på hente deletedata", res.status)
+    }
+    const data= await res.json();
+    user=data
+  }catch(error){
+    console.error("något blev fel med att radera data", error)
+  }
+  try{
+  const updatedList={
+    username:user.username,
+    password:user.password,
+    myMovies:user.myMovies
+  }
+  let index= updatedList.myMovies.findIndex(user=> user.title===object.title)
+  updatedList.myMovies.splice(index,1);
 
-const showMyMovies = (movie) => {
+  const res=await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+    method:"PUT",
+    headers:getHeaders(API_KEY),
+    body:JSON.stringify(updatedList)
+  })
+  if(!res.ok){
+    throw new Error("Något blev feil put databasen deletedata", res.status)
+  }
+  await getData();
+  }catch(error){
+    console.error("Något blev fel med att radera data", error)
+  }
+  
+};
+const showMyMovies = async(movie) => {
   let container = document.createElement("li");
   container.style.display = "flex";
   container.style.gap = "10px";
   container.style.alignItems = "center";
-
-  let confirmButton = document.createElement("button");
-  confirmButton.innerHTML = `<i class="fa-regular fa-circle"></i>`;
-  confirmButton.style.border = "none";
-  confirmButton.style.outline = "none";
-  confirmButton.style.background = "none";
-  confirmButton.style.fontSize = "2rem";
-  container.appendChild(confirmButton);
-
   let movieInformation = document.createElement("div");
   movieInformation.style.width = "100%";
   movieInformation.style.border = "1px solid black";
@@ -72,24 +123,15 @@ const showMyMovies = (movie) => {
   textbox.appendChild(year);
 
   let removeButton = document.createElement("button");
-  removeButton.innerHTML = `<i class="fa-solid fa-pen"></i>`;
+  removeButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   removeButton.style.border = "none";
   removeButton.style.outline = "none";
   removeButton.style.background = "none";
-  removeButton.style.fontSize = "2rem";
-  removeButton.style.paddingRight = "10px";
-  removeButton.addEventListener("click", () => {
-    confirmButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
-    removeButton.innerHTML = `<i class="fa-solid fa-check"></i>`;
-
-    confirmButton.addEventListener("click", () => {
-      deleteData(movie);
-    });
-    removeButton.addEventListener("click", () => {
-      removeButton.innerHTML = `<i class="fa-solid fa-pen"></i>`;
-      confirmButton.innerHTML = `<i class="fa-regular fa-circle"></i>`;
-    });
-  });
+  removeButton.style.fontSize = "2.5rem";
+  removeButton.style.paddingRight = "40px";
+  removeButton.addEventListener("click", async()=>{
+    await deleteData(movie)
+  })
 
   informationBox.appendChild(textbox);
   movieInformation.appendChild(informationBox);
@@ -98,4 +140,4 @@ const showMyMovies = (movie) => {
 
   myWatchList.appendChild(container);
 };
-showData();
+getData()
