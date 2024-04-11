@@ -22,6 +22,8 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
+
+
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
 const myWatchList = document.querySelector("#myWatchList");

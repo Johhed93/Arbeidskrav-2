@@ -50,3 +50,10 @@ button {
     border-radius: 15px;
     background-color: #A19CE8;
 }
+
+.registrateUser {
+    margin: 15px;
+    text-align: center;
+    color: black;
+}
+

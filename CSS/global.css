@@ -26,11 +26,13 @@ header nav ul {
 }
 
 header nav ul li a {
-  text-decoration: none;
   color: black;
   padding: 10px 15px;
-  border-radius: 20px;
-  border: 1px solid black;
+
+}
+
+a {
+  text-decoration: none;
 }
 
 .headerTitle {
@@ -38,6 +40,9 @@ header nav ul li a {
   font-size: 1.8rem;
 }
 
+#userLogOut {
+  display: none;
+}
 .search-container {
   display: flex;
   flex-flow: row wrap;
