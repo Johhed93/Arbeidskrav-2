@@ -22,8 +22,6 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
-
-
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
 const myWatchList = document.querySelector("#myWatchList");
@@ -290,8 +288,6 @@ const findMovie = () => {
 
 findMovieInput.addEventListener("input", findMovie);
 
-
-
 //Choose random movie function
 const randomMovie = () => {
   const randomNumber = Math.floor(Math.random() * allMovies.length);
@@ -393,7 +389,6 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
- 
   divTitleContainer.appendChild(titleText);
   overlay.appendChild(divTitleContainer);
   divTitleContainer.appendChild(yearText);
@@ -408,19 +403,13 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 
-
-
-
-
   if (loggedIn()) {
-
-
     const addBtn = document.createElement("button");
 
     addBtn.addEventListener("click", () => {
       addToWatchList(movie);
       showAddedStatus();
-     
+
       overlay.style.display = "none";
     });
     addBtn.style.display = "flex";
@@ -433,49 +422,42 @@ const showSpecificMovie = (movie) => {
     addBtn.style.borderRadius = "15px";
     addBtn.style.backgroundColor = "#FF9898";
 
-  const addBtnImage = document.createElement("img");
-  addBtnImage.src = "./assets/addToListIcon.png";
-  addBtnImage.style.width = "30px";
-  addBtnImage.style.height = "30px";
-  addBtn.appendChild(addBtnImage);
+    const addBtnImage = document.createElement("img");
+    addBtnImage.src = "./assets/addToListIcon.png";
+    addBtnImage.style.width = "30px";
+    addBtnImage.style.height = "30px";
+    addBtn.appendChild(addBtnImage);
 
-  addBtn.appendChild(document.createTextNode("Legg til i ønsket sett"));
-  overlay.appendChild(addBtn);
-}
-
+    addBtn.appendChild(document.createTextNode("Legg til i ønsket sett"));
+    overlay.appendChild(addBtn);
+  }
 };
-
-
-
-
-  const showAddedStatus = () => {
-    const addedMessage = document.getElementById("addedMessage");
-    addedMessage.innerHTML = "";
-    const infoText = document.createElement("p");
-    addedMessage.style.position = "fixed";
-    addedMessage.style.bottom = "20px";
-    addedMessage.style.border = "2px solid black";
-    addedMessage.style.borderRadius = "15px";
-    addedMessage.style.background = "linear-gradient(to right, #d3cce3, #e9e4f0)";
-    addedMessage.style.padding = "20px";
-    addedMessage.style.opacity = "0";
-    addedMessage.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
-    infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
-    infoText.style.fontSize = "1rem";
-    addedMessage.appendChild(infoText);
-    //keyframes
-    const showAddedMessasge = [
-      { opacity: "0", left: "0px" },
-      { opacity: "1", left: "30px", offset: 0.15 },
-      { opacity: "1", left: "30px", offset: 0.93 },
-      { opacity: "0", left: "30px"},
-    ];
-    //animation options
-    const showMessageTiming = {
-      duration: 6000,
-      delay: 500
-    };
-    addedMessage.animate(showAddedMessasge, showMessageTiming);
+const showAddedStatus = () => {
+  const addedMessage = document.getElementById("addedMessage");
+  addedMessage.innerHTML = "";
+  const infoText = document.createElement("p");
+  addedMessage.style.position = "fixed";
+  addedMessage.style.bottom = "20px";
+  addedMessage.style.border = "2px solid black";
+  addedMessage.style.borderRadius = "15px";
+  addedMessage.style.background = "linear-gradient(to right, #d3cce3, #e9e4f0)";
+  addedMessage.style.padding = "20px";
+  addedMessage.style.opacity = "0";
+  addedMessage.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
+  infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
+  infoText.style.fontSize = "1rem";
+  addedMessage.appendChild(infoText);
+  //keyframes
+  const showAddedMessasge = [
+    { opacity: "0", left: "0px" },
+    { opacity: "1", left: "30px", offset: 0.15 },
+    { opacity: "1", left: "30px", offset: 0.93 },
+    { opacity: "0", left: "30px" },
+  ];
+  //animation options
+  const showMessageTiming = {
+    duration: 6000,
+    delay: 500,
   };
-
-
+  addedMessage.animate(showAddedMessasge, showMessageTiming);
+};
