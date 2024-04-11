@@ -2,6 +2,10 @@
 
 const BASE_URL =
   "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
+
+const USERBASE_URL= "https://crudapi.co.uk/api/v1/probe"
+const API_KEY= "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ"
+const headers= {"Authorization": `Bearer ${API_KEY}`};
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -396,6 +400,7 @@ const getLoggedInUser= ()=>{
   console.error("Kunde inte verifiera login", error)
  }
  }
+
 
 
  const userLogin = async()=>{
