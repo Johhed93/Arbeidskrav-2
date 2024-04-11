@@ -15,6 +15,7 @@ const setLoginstatus = (status) => {
 const loggedIn = () => {
   return sessionStorage.getItem("loggedIn") === "true";
 };
+
 const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
@@ -46,6 +47,7 @@ const verifyLogin = async (username, password) => {
       throw new Error("Något blev fel i fetch til verifiering av login");
     }
     const data = await res.json();
+    console.log(data.items)
   
    
     return data.items.some((user) =>  user.username === username && user.password === password);
