@@ -109,9 +109,9 @@ const showReleaseYear = () => {
 
 // Choose release year
 const chooseReleaseYear = (value) => {
-    value = Number(value);
-    return allMovies.filter((movie) => movie.year === value);
-  };
+  value = Number(value);
+  return allMovies.filter((movie) => movie.year === value);
+};
 
 //Reveal genre filter
 const selectGenresForm = document.getElementById("selectGenresForm");
@@ -395,9 +395,6 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
-
-
-  
   //addButton to movielist
   const addBtn = document.createElement("button");
 
@@ -436,5 +433,36 @@ const showSpecificMovie = (movie) => {
   addBtn.addEventListener("click", () => {
     addToWatchList(movie);
     overlay.style.display = "none";
+    showAddedStatus();
   });
+
+  const showAddedStatus = () => {
+    const addedMessage = document.getElementById("addedMessage");
+    addedMessage.innerHTML = "";
+    const infoText = document.createElement("p");
+    addedMessage.style.position = "fixed";
+    addedMessage.style.bottom = "20px";
+    addedMessage.style.border = "2px solid black";
+    addedMessage.style.borderRadius = "15px";
+    addedMessage.style.background = "linear-gradient(to right, #d3cce3, #e9e4f0)";
+    addedMessage.style.padding = "20px";
+    addedMessage.style.opacity = "0";
+    addedMessage.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
+    infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
+    infoText.style.fontSize = "1rem";
+    addedMessage.appendChild(infoText);
+    //keyframes
+    const showAddedMessasge = [
+      { opacity: "0", left: "0px" },
+      { opacity: "1", left: "30px", offset: 0.15 },
+      { opacity: "1", left: "30px", offset: 0.93 },
+      { opacity: "0", left: "30px"},
+    ];
+    //animation options
+    const showMessageTiming = {
+      duration: 6000,
+      delay: 500
+    };
+    addedMessage.animate(showAddedMessasge, showMessageTiming);
+  };
 };
