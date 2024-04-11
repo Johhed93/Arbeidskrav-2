@@ -15,6 +15,7 @@ const setLoginstatus = (status) => {
 const loggedIn = () => {
   return sessionStorage.getItem("loggedIn") === "true";
 };
+
 const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
@@ -46,8 +47,6 @@ const verifyLogin = async (username, password) => {
       throw new Error("Något blev fel i fetch til verifiering av login");
     }
     const data = await res.json();
-  
-   
     return data.items.some((user) =>  user.username === username && user.password === password);
   } catch (error) {
     console.error("Kunde inte verifiera login", error);
@@ -66,8 +65,6 @@ const userLogin = async () => {
       setLoginstatus(true);
       const userID = await fetchUserID(usernameInput); 
       sessionStorage.setItem("loggedInUser", JSON.stringify(userID));
-      
-
     }
   } catch (error) {
     console.error("Något blev feil i verifiering av login", error.message);

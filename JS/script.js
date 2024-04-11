@@ -2,7 +2,17 @@
 
 const BASE_URL =
   "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
-
+  const USERBASE_URL = "https://crudapi.co.uk/api/v1/user";
+  const API_KEY = "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ";
+  const getHeaders = (apiKey) => {
+    return {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    };
+  };
+  const getLoggedInUser = () => {
+    return JSON.parse(sessionStorage.getItem("loggedInUser"));
+  };
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -304,26 +314,57 @@ randomMovieBtn.addEventListener("click", () => {
 });
 
 //Local storage
-const saveData = () => {
-  if (localStorage.getItem("data")) {
-    return;
-  } else {
-    localStorage.setItem("data", JSON.stringify([])); //Save content in movielist
+const checkIfMovieExist=async(object)=>{
+  try{
+    const res= await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+      method:"GET",
+      headers:getHeaders(API_KEY)
+    })
+    const data=await res.json();
+    return data.myMovies.some(movie=>movie.title===object.title)
+
+  }catch(error){
+    console.error("Något blev fel i kontrollering om filmen fanns", error)
   }
-};
-const addToWatchList = (object) => {
-  let watchList = JSON.parse(localStorage.getItem("data"));
-  const checkIfExist = watchList.some((movie) => movie.title === object.title);
-  console.log(checkIfExist);
-  if (!checkIfExist) {
-    watchList.push(object);
-    localStorage.setItem("data", JSON.stringify(watchList));
-  } else {
-    console.log("Den finns redan");
+}
+const addToWatchList = async (object) => {
+  let user;
+  try{
+    if(await checkIfMovieExist(object)){
+      return alert("Denna filmen finns redan i dine filmer")
+    }
+     const res=await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+      method:"GET",
+      headers:getHeaders(API_KEY)
+    })
+    const data= await res.json();
+    user=data
   }
+  catch(error){
+  console.error("Error något blev fel att hente information till brukern ved legga till film", error)
+  }
+  try{
+    const updatedUser={
+      username:user.username,
+      password:user.password,
+      myMovies:user.myMovies
+    }
+    updatedUser.myMovies.push(object)
+    const res= await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
+      method:"PUT",
+      headers:getHeaders(API_KEY),
+      body:JSON.stringify(updatedUser)
+    })
+    if(!res.ok){
+      throw new Error("Något blev fel i att legga till film", res.status)
+    }
+  }catch(error){
+    console.error("Något blev fel med att legga till filmen")
+  }
+ 
 };
 
-saveData();
+
 
 //Sort movie by letter in the alphabet
 const sortInAlphabeticalOrder = () => {
