@@ -2,17 +2,17 @@
 
 const BASE_URL =
   "https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies-2020s.json";
-  const USERBASE_URL = "https://crudapi.co.uk/api/v1/user";
-  const API_KEY = "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ";
-  const getHeaders = (apiKey) => {
-    return {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    };
+const USERBASE_URL = "https://crudapi.co.uk/api/v1/user";
+const API_KEY = "XgZAbMaJMOh5JZMo8gqNs8I__snYynl3o_H7dtDrhIfBClHGcQ";
+const getHeaders = (apiKey) => {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
   };
-  const getLoggedInUser = () => {
-    return JSON.parse(sessionStorage.getItem("loggedInUser"));
-  };
+};
+const getLoggedInUser = () => {
+  return JSON.parse(sessionStorage.getItem("loggedInUser"));
+};
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -34,8 +34,8 @@ fetchMovies();
 
 //Logged in
 const loggedIn = () => {
-    return sessionStorage.getItem("loggedIn") === "true";
-  };
+  return sessionStorage.getItem("loggedIn") === "true";
+};
 
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
@@ -86,6 +86,23 @@ const showMovies = (movie) => {
   yearText.style.fontSize = "1rem";
   yearText.style.marginBottom = "10px";
   yearText.style.color = "#595959";
+
+  //Animations
+
+  divContainer.addEventListener("mouseover", () => {
+    divContainer.style.transform = "scale(1.1)";
+    divContainer.style.borderColor = "red";
+  });
+
+  divContainer.addEventListener("mouseover", () => {
+    divContainer.style.transition = "all 1s";
+  });
+
+  divContainer.addEventListener("mouseleave", () => {
+    divContainer.style.transform = "scale(1.0)";
+    divContainer.style.borderColor = "inherit";
+  });
+
   divContainer.appendChild(image);
   divTitleContainer.appendChild(titleText);
   divContainer.appendChild(divTitleContainer);
@@ -270,6 +287,9 @@ const displayFilteredMovies = (inpValue, type) => {
   yearLabel.innerHTML = inpValue;
   yearContainer.appendChild(yearInput);
   yearContainer.appendChild(yearLabel);
+  selectYearsForm.style.zIndex = '10'; //For å få i front
+  selectGenresForm.style.zIndex = '10'; //For å få i front
+  
   if (type === "years") {
     selectYearsForm.appendChild(yearContainer);
   } else if (type === "genres") {
@@ -314,57 +334,55 @@ randomMovieBtn.addEventListener("click", () => {
 });
 
 //Local storage
-const checkIfMovieExist=async(object)=>{
-  try{
-    const res= await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
-      method:"GET",
-      headers:getHeaders(API_KEY)
-    })
-    const data=await res.json();
-    return data.myMovies.some(movie=>movie.title===object.title)
-
-  }catch(error){
-    console.error("Något blev fel i kontrollering om filmen fanns", error)
+const checkIfMovieExist = async (object) => {
+  try {
+    const res = await fetch(`${USERBASE_URL}/${getLoggedInUser()}`, {
+      method: "GET",
+      headers: getHeaders(API_KEY),
+    });
+    const data = await res.json();
+    return data.myMovies.some((movie) => movie.title === object.title);
+  } catch (error) {
+    console.error("Något blev fel i kontrollering om filmen fanns", error);
   }
-}
+};
 const addToWatchList = async (object) => {
   let user;
-  try{
-    if(await checkIfMovieExist(object)){
-      return alert("Denna filmen finns redan i dine filmer")
+  try {
+    if (await checkIfMovieExist(object)) {
+      return alert("Denna filmen finns redan i dine filmer");
     }
-     const res=await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
-      method:"GET",
-      headers:getHeaders(API_KEY)
-    })
-    const data= await res.json();
-    user=data
+    const res = await fetch(`${USERBASE_URL}/${getLoggedInUser()}`, {
+      method: "GET",
+      headers: getHeaders(API_KEY),
+    });
+    const data = await res.json();
+    user = data;
+  } catch (error) {
+    console.error(
+      "Error något blev fel att hente information till brukern ved legga till film",
+      error
+    );
   }
-  catch(error){
-  console.error("Error något blev fel att hente information till brukern ved legga till film", error)
-  }
-  try{
-    const updatedUser={
-      username:user.username,
-      password:user.password,
-      myMovies:user.myMovies
+  try {
+    const updatedUser = {
+      username: user.username,
+      password: user.password,
+      myMovies: user.myMovies,
+    };
+    updatedUser.myMovies.push(object);
+    const res = await fetch(`${USERBASE_URL}/${getLoggedInUser()}`, {
+      method: "PUT",
+      headers: getHeaders(API_KEY),
+      body: JSON.stringify(updatedUser),
+    });
+    if (!res.ok) {
+      throw new Error("Något blev fel i att legga till film", res.status);
     }
-    updatedUser.myMovies.push(object)
-    const res= await fetch(`${USERBASE_URL}/${getLoggedInUser()}`,{
-      method:"PUT",
-      headers:getHeaders(API_KEY),
-      body:JSON.stringify(updatedUser)
-    })
-    if(!res.ok){
-      throw new Error("Något blev fel i att legga till film", res.status)
-    }
-  }catch(error){
-    console.error("Något blev fel med att legga till filmen")
+  } catch (error) {
+    console.error("Något blev fel med att legga till filmen");
   }
- 
 };
-
-
 
 //Sort movie by letter in the alphabet
 const sortInAlphabeticalOrder = () => {
