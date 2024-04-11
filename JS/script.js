@@ -356,3 +356,6 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 };
+
+
+//Create newUser 
