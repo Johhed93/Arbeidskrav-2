@@ -366,3 +366,52 @@ const loggedIn = () => {
 const getLoggedInUser= ()=>{
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
  }
+ const setLoggedInUser=(id)=>{
+  return sessionStorage.setItem("loggedInUser", JSON.stringify(id))
+ }
+ 
+ // Verifiering av brukernavn samt pålogging 
+ const ifUsernameExist = async(username)=>{
+  try{
+    const res= await fetch(USERBASE_URL);
+    if(!res.ok){
+      throw new Error("Något er feil i databasen ved verifiering av bruker");
+    }
+    const data=await res.json();
+    return data.some(user=>user.username===username)
+  }catch(error){
+    console.error("Något blev fel i verifiering av brukernavn")
+  }
+ }
+ const verifyLogin= async(username, password)=>{
+ try{
+  const res= await fetch(USERBASE_URL);
+  if(!res.ok){
+    throw new Error("Något blev fel i fetch til verifiering av login")
+  }
+  const data= await res.json();
+  return data.some(user=> user.username===username && user.password===password)
+
+ }catch(error){
+  console.error("Kunde inte verifiera login", error)
+ }
+ }
+
+
+ const userLogin = async()=>{
+  const usernameInput= document.querySelector("#userNameInput").value;
+  const passwordInput= document.querySelector("passwordInput").value;
+  try{
+   if(!await verifyLogin(usernameInput, passwordInput)){
+    console.log("Feil brukernavn/passord")
+   }else{
+    setLoginstatus(true);
+   const userID= await fetchUserID(usernameInput);
+   sessionStorage.setItem("loggedInUser", JSON.stringify(userID));
+   
+   userLogin()
+  }
+  }catch(error){
+    console.error("Något blev feil i verifiering av login")
+  }
+ }
