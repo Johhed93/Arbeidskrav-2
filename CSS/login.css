@@ -9,7 +9,7 @@ h1 {
     margin: 35px;
 }
 
-.registrerContainer {
+.loginContainer {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -19,7 +19,7 @@ h1 {
   height: auto;
 }
 
-.registrerInput {
+.loginInput {
     display: flex;
     flex-flow:  column wrap;
     justify-content: center;
@@ -33,12 +33,12 @@ h1 {
 
 
 
-#newUsernameInput::placeholder {
+#usernameInput::placeholder {
     color: black;
     text-align: center;
 }
 
-#newPasswordInput::placeholder {
+#passwordInput::placeholder {
     color: black;
     text-align: center;
 }
