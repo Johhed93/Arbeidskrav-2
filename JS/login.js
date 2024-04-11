@@ -38,14 +38,16 @@ const ifUsernameExist = async (username) => {
 };
 const verifyLogin = async (username, password) => {
   try {
-    const res = await fetch(USERBASE_URL);
+    const res= await fetch(USERBASE_URL,{
+        method: "GET",
+        headers: getHeaders(API_KEY)
+      });
     if (!res.ok) {
       throw new Error("Något blev fel i fetch til verifiering av login");
     }
     const data = await res.json();
-    return data.some(
-      (user) => user.username === username && user.password === password
-    );
+   
+    return data.items.some((user) => { user.username === username && user.password === password});
   } catch (error) {
     console.error("Kunde inte verifiera login", error);
   }
@@ -53,9 +55,9 @@ const verifyLogin = async (username, password) => {
 
 const userLogin = async () => {
   const usernameInput = document.querySelector("#usernameInput").value;
-  const passwordInput = document.querySelector("passwordInput").value;
+  const passwordInput = document.querySelector("#passwordInput").value;
   try {
-    if (!(await verifyLogin(usernameInput, passwordInput))) {
+    if (!await verifyLogin(usernameInput, passwordInput)) {
       console.log("Feil brukernavn/passord");
     } else {
       setLoginstatus(true);
@@ -68,3 +70,8 @@ const userLogin = async () => {
     console.error("Något blev feil i verifiering av login");
   }
 };
+
+const loginBtn = document.querySelector("#loginBtn");
+loginBtn.addEventListener("click", async () => {
+  await userLogin();
+});
