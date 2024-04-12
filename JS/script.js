@@ -462,7 +462,7 @@ const showSpecificMovie = (movie) => {
   if (movie.extract !== undefined) {
     movieDescripton.innerHTML = `Plot: ${movie.extract}`;
   } else {
-    movieDescripton.innerHTML = `Plot: Det er dessverre ikke skrevet noe plot til denne filmen.`
+    movieDescripton.innerHTML = `Plot: Det er dessverre ikke skrevet noe plot til denne filmen.`;
   }
   movieDescripton.style.fontSize = "1rem";
 
@@ -482,14 +482,16 @@ const showSpecificMovie = (movie) => {
   const randomMovieBtn = document.createElement("button");
   randomMovieBtn.textContent = "Tilfeldig film";
   randomMovieBtn.style.padding = "2px";
-  randomMovieBtn.style.paddingInline = "20px";
+  randomMovieBtn.style.paddingInline = "12px";
   randomMovieBtn.style.position = "absolute";
   randomMovieBtn.style.bottom = "10px";
-  randomMovieBtn.style.left = "230px";
+  randomMovieBtn.style.left = "250px";
   randomMovieBtn.style.borderRadius = "15px";
   randomMovieBtn.style.backgroundColor = "#FF9898";
-  randomMovieBtn.style.width = "150px";
+  randomMovieBtn.style.width = "130px";
   randomMovieBtn.style.height = "40px";
+  randomMovieBtn.style.fontFamily = "Arial Rounded MT, sans-serif";
+  randomMovieBtn.style.fontSize = "1rem";
 
   randomMovieBtn.addEventListener("click", () => {
     overlay.innerHTML = "";
@@ -523,13 +525,15 @@ const showSpecificMovie = (movie) => {
 
     addBtn.style.display = "flex";
     addBtn.style.alignItems = "center";
-    addBtn.style.padding = "2px";
-    addBtn.style.paddingInline = "20px";
+    addBtn.style.padding = "4px";
+    addBtn.style.paddingInline = "12px";
     addBtn.style.position = "absolute";
     addBtn.style.bottom = "10px";
     addBtn.style.left = "10px";
     addBtn.style.borderRadius = "15px";
     addBtn.style.backgroundColor = "#FF9898";
+    addBtn.style.fontFamily = "Arial Rounded MT, sans-serif";
+    addBtn.style.fontSize = "1rem";
 
     const addBtnImage = document.createElement("img");
     addBtnImage.src = "./assets/addToListIcon.png";
@@ -551,6 +555,7 @@ const showAddedStatus = () => {
   addedMessage.style.borderRadius = "15px";
   addedMessage.style.background = "linear-gradient(to right, #d3cce3, #e9e4f0)";
   addedMessage.style.padding = "20px";
+  addedMessage.style.zIndex = "6";
   addedMessage.style.opacity = "0";
   addedMessage.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
   infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
