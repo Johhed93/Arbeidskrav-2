@@ -12,7 +12,7 @@ body {
 header {
   width: 100%;
   background-color: #a19ce8;
-  padding: 25px;
+  padding: 20px;
   border: 1px solid gray;
   margin-bottom: 50px;
 }
@@ -35,14 +35,24 @@ a {
   text-decoration: none;
 }
 
+#rightNavContainer {
+  display: flex;
+}
+
+h1 {
+  font-family: Mongolian Baiti, Times New Roman, serif;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+}
+
 .headerTitle {
   border: none;
   font-size: 1.8rem;
 }
 
-#userLogOut {
-  display: none;
-}
 .search-container {
   display: flex;
   flex-flow: row wrap;

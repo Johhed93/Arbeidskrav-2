@@ -22,26 +22,39 @@
           <li><a href="./index.html">Forside</a></li>
           <li>
             <a href="./index.html" class="headerTitle"
-              >Filmer fra 2020 - 2023</a>
+              >Filmer fra 2020 - 2023</a
+            >
           </li>
-          <div id="userLogOut">Logg ut</div>
           <li><a href="./myList.html">Min Liste</a></li>
         </ul>
       </nav>
     </header>
-  <main>
-    <h1>Login bruker</h1>
-    <section class="loginContainer">
-    <div class="loginInput">
-      <input id="usernameInput" name="usernameInput" type="text" placeholder="Skriv inn brukernavn">
+    <main>
+      <h1>Login bruker</h1>
+      <section class="loginContainer">
+        <p id="WrongLoginInfo">Feil brukernavn eller passord!</p>
+        <div class="loginInput">
+          <input
+            id="usernameInput"
+            name="usernameInput"
+            type="text"
+            placeholder="Skriv inn brukernavn"
+          />
 
-      <input id="passwordInput" name="passwordInput" type="text" placeholder="Skriv inn passord">
-    </div>
-    <div class="buttonSection">
-      <button type="submit" id="loginBtn">Logg inn</button>
-    </div>
-    </section>
-    <a href="registrerUser.html"><p class="registrateUser">Registrer bruker</p></a>
-  </main>
+          <input
+            id="passwordInput"
+            name="passwordInput"
+            type="text"
+            placeholder="Skriv inn passord"
+          />
+        </div>
+        <div class="buttonSection">
+          <button type="submit" id="loginBtn">Logg inn</button>
+        </div>
+      </section>
+      <a href="registrerUser.html"
+        ><p class="registrateUser">Registrer bruker</p></a
+      >
+    </main>
   </body>
 </html>

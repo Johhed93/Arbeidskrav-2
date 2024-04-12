@@ -14,6 +14,17 @@ const getHeaders = (apiKey) => {
   };
 };
 
+// Sjekker om brukeren er logget på
+const checkLoggedInStatus = () => {
+  const loginListPoint = document.getElementById("loginListPoint");
+  if (sessionStorage.getItem("loggedIn") === "true") { //Hvis ja, vis "Logg ut"
+    loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
+  } else { // Hvis nei, vis "Logg inn"
+    loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
+  }
+};
+
+checkLoggedInStatus();
 
 //Hente data/Radera i myMovies arrayen
 const myWatchList = document.querySelector("#myWatchList");

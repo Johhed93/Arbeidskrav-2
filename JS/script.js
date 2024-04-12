@@ -13,6 +13,21 @@ const getHeaders = (apiKey) => {
 const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
+
+// Sjekker om brukeren er logget på
+const checkLoggedInStatus = () => {
+  const loginListPoint = document.getElementById("loginListPoint");
+  if (sessionStorage.getItem("loggedIn") === "true") {
+    //Hvis ja, vis "Logg ut"
+    loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
+  } else {
+    // Hvis nei, vis "Logg inn"
+    loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
+  }
+};
+
+checkLoggedInStatus();
+
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -57,8 +72,13 @@ const showMovies = (movie) => {
   divContainer.style.alignItems = "center";
   divContainer.style.justifyContent = "space-between";
   divContainer.style.flexFlow = "column wrap";
-  divContainer.style.border = "2px solid gray";
+  divContainer.style.zIndex = "1";
+  divContainer.style.backgroundColor = "white";
+  divContainer.style.border = "2px solid black";
   divContainer.style.borderRadius = "5px";
+  divContainer.style.cursor = "pointer";
+  divContainer.style.boxShadow =
+    "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
   divTitleContainer.style.display = "flex";
   divTitleContainer.style.width = "180px";
   divTitleContainer.style.justifyContent = "center";
@@ -92,14 +112,13 @@ const showMovies = (movie) => {
   divContainer.addEventListener("mouseover", () => {
     divContainer.style.transform = "scale(1.1)";
     divContainer.style.borderColor = "red";
-  });
-
-  divContainer.addEventListener("mouseover", () => {
+    divContainer.style.zIndex = "5";
     divContainer.style.transition = "all 1s";
   });
 
   divContainer.addEventListener("mouseleave", () => {
     divContainer.style.transform = "scale(1.0)";
+    divContainer.style.zIndex = "1";
     divContainer.style.borderColor = "inherit";
   });
 
@@ -287,9 +306,9 @@ const displayFilteredMovies = (inpValue, type) => {
   yearLabel.innerHTML = inpValue;
   yearContainer.appendChild(yearInput);
   yearContainer.appendChild(yearLabel);
-  selectYearsForm.style.zIndex = '10'; //For å få i front
-  selectGenresForm.style.zIndex = '10'; //For å få i front
-  
+  selectYearsForm.style.zIndex = "10"; //For å få i front
+  selectGenresForm.style.zIndex = "10"; //For å få i front
+
   if (type === "years") {
     selectYearsForm.appendChild(yearContainer);
   } else if (type === "genres") {
@@ -401,6 +420,7 @@ const showSpecificMovie = (movie) => {
   overlay.style.alignItems = "center";
   overlay.style.justifyContent = "space-evenly";
   overlay.style.flexFlow = "flexrow wrap";
+  overlay.style.zIndex = "7";
   overlay.style.border = "2px solid gray";
   overlay.style.borderRadius = "5px";
   overlay.style.backgroundColor = "#FFE97A";
@@ -409,7 +429,6 @@ const showSpecificMovie = (movie) => {
   divTitleContainer.style.width = "600px";
   divTitleContainer.style.flexFlow = "column";
   divTitleContainer.style.justifyContent = "center";
-  divTitleContainer.style.textAlign = "center";
   divTitleContainer.style.marginRight = "15px";
   divTitleContainer.style.paddingBottom = "45px";
 
@@ -432,17 +451,23 @@ const showSpecificMovie = (movie) => {
   titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
   titleText.style.fontSize = "1.7rem";
   titleText.style.margin = "10px 0";
+  titleText.style.textAlign = "center";
 
   yearText.innerHTML = movie.year;
   yearText.style.fontSize = "0.8rem";
-  yearText.style.marginBottom = "10px";
+  yearText.style.marginBottom = "20px";
   yearText.style.color = "#595959";
+  yearText.style.textAlign = "center";
 
-  movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  if (movie.extract !== undefined) {
+    movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  } else {
+    movieDescripton.innerHTML = `Plot: Det er dessverre ikke skrevet noe plot til denne filmen.`;
+  }
   movieDescripton.style.fontSize = "1rem";
 
   actors.innerHTML = `Cast: ${movie.cast}`;
-  actors.style.padding = "15px";
+  actors.style.padding = "15px 0";
   actors.style.fontSize = "0.8rem";
 
   //Close window button
@@ -453,19 +478,20 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
-
   //Random movie button in overlay
-  const randomMovieBtn = document.createElement('button');
-  randomMovieBtn.textContent = 'Tilfeldig film';
+  const randomMovieBtn = document.createElement("button");
+  randomMovieBtn.textContent = "Tilfeldig film";
   randomMovieBtn.style.padding = "2px";
-  randomMovieBtn.style.paddingInline = "20px";
+  randomMovieBtn.style.paddingInline = "12px";
   randomMovieBtn.style.position = "absolute";
   randomMovieBtn.style.bottom = "10px";
-  randomMovieBtn.style.left = "230px";
+  randomMovieBtn.style.left = "250px";
   randomMovieBtn.style.borderRadius = "15px";
   randomMovieBtn.style.backgroundColor = "#FF9898";
-  randomMovieBtn.style.width = "150px";
+  randomMovieBtn.style.width = "130px";
   randomMovieBtn.style.height = "40px";
+  randomMovieBtn.style.fontFamily = "Arial Rounded MT, sans-serif";
+  randomMovieBtn.style.fontSize = "1rem";
 
   randomMovieBtn.addEventListener("click", () => {
     overlay.innerHTML = "";
@@ -487,9 +513,6 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 
-
- 
-
   if (loggedIn()) {
     const addBtn = document.createElement("button");
 
@@ -497,18 +520,20 @@ const showSpecificMovie = (movie) => {
       addToWatchList(movie);
       showAddedStatus();
 
-    overlay.style.display = "none";
+      overlay.style.display = "none";
     });
 
     addBtn.style.display = "flex";
     addBtn.style.alignItems = "center";
-    addBtn.style.padding = "2px";
-    addBtn.style.paddingInline = "20px";
+    addBtn.style.padding = "4px";
+    addBtn.style.paddingInline = "12px";
     addBtn.style.position = "absolute";
     addBtn.style.bottom = "10px";
     addBtn.style.left = "10px";
     addBtn.style.borderRadius = "15px";
     addBtn.style.backgroundColor = "#FF9898";
+    addBtn.style.fontFamily = "Arial Rounded MT, sans-serif";
+    addBtn.style.fontSize = "1rem";
 
     const addBtnImage = document.createElement("img");
     addBtnImage.src = "./assets/addToListIcon.png";
@@ -530,6 +555,7 @@ const showAddedStatus = () => {
   addedMessage.style.borderRadius = "15px";
   addedMessage.style.background = "linear-gradient(to right, #d3cce3, #e9e4f0)";
   addedMessage.style.padding = "20px";
+  addedMessage.style.zIndex = "6";
   addedMessage.style.opacity = "0";
   addedMessage.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
   infoText.innerHTML = "Filmen ble lagt til i min liste 😊";
