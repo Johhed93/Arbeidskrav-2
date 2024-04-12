@@ -17,9 +17,11 @@ const getLoggedInUser = () => {
 // Sjekker om brukeren er logget på
 const checkLoggedInStatus = () => {
   const loginListPoint = document.getElementById("loginListPoint");
-  if (sessionStorage.getItem("loggedIn") === "true") { //Hvis ja, vis "Logg ut"
+  if (sessionStorage.getItem("loggedIn") === "true") {
+    //Hvis ja, vis "Logg ut"
     loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
-  } else { // Hvis nei, vis "Logg inn"
+  } else {
+    // Hvis nei, vis "Logg inn"
     loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
   }
 };
@@ -75,7 +77,8 @@ const showMovies = (movie) => {
   divContainer.style.border = "2px solid black";
   divContainer.style.borderRadius = "5px";
   divContainer.style.cursor = "pointer";
-  divContainer.style.boxShadow = "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
+  divContainer.style.boxShadow =
+    "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
   divTitleContainer.style.display = "flex";
   divTitleContainer.style.width = "180px";
   divTitleContainer.style.justifyContent = "center";
@@ -426,7 +429,6 @@ const showSpecificMovie = (movie) => {
   divTitleContainer.style.width = "600px";
   divTitleContainer.style.flexFlow = "column";
   divTitleContainer.style.justifyContent = "center";
-  divTitleContainer.style.textAlign = "center";
   divTitleContainer.style.marginRight = "15px";
   divTitleContainer.style.paddingBottom = "45px";
 
@@ -449,17 +451,23 @@ const showSpecificMovie = (movie) => {
   titleText.style.fontFamily = "Mongolian Baiti, Times New Roman, serif";
   titleText.style.fontSize = "1.7rem";
   titleText.style.margin = "10px 0";
+  titleText.style.textAlign = "center";
 
   yearText.innerHTML = movie.year;
   yearText.style.fontSize = "0.8rem";
-  yearText.style.marginBottom = "10px";
+  yearText.style.marginBottom = "20px";
   yearText.style.color = "#595959";
+  yearText.style.textAlign = "center";
 
-  movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  if (movie.extract !== undefined) {
+    movieDescripton.innerHTML = `Plot: ${movie.extract}`;
+  } else {
+    movieDescripton.innerHTML = `Plot: Det er dessverre ikke skrevet noe plot til denne filmen.`
+  }
   movieDescripton.style.fontSize = "1rem";
 
   actors.innerHTML = `Cast: ${movie.cast}`;
-  actors.style.padding = "15px";
+  actors.style.padding = "15px 0";
   actors.style.fontSize = "0.8rem";
 
   //Close window button
