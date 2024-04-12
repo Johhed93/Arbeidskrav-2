@@ -56,15 +56,16 @@ const verifyLogin = async (username, password) => {
 const userLogin = async () => {
   const usernameInput = document.querySelector("#usernameInput").value;
   const passwordInput = document.querySelector("#passwordInput").value;
+  const WrongLoginInfo = document.getElementById("WrongLoginInfo");
   try {
     if (!await verifyLogin(usernameInput, passwordInput)) {
-      console.log("Feil brukernavn/passord");
-      
+      WrongLoginInfo.style.display = "block";
     } else {
-      
+      WrongLoginInfo.style.display = "none";
       setLoginstatus(true);
       const userID = await fetchUserID(usernameInput); 
       sessionStorage.setItem("loggedInUser", JSON.stringify(userID));
+      window.location.href = 'index.html';
     }
   } catch (error) {
     console.error("Något blev feil i verifiering av login", error.message);
@@ -86,5 +87,4 @@ const fetchUserID= async(username)=>{
 const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", async () => {
   await userLogin();
-  window.location.href = 'index.html';
 });

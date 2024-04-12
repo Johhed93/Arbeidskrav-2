@@ -13,6 +13,18 @@ const getHeaders = (apiKey) => {
 const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
+
+const checkLoggedInStatus = () => {
+  const loginListPoint = document.getElementById("loginListPoint");
+  if (sessionStorage.getItem("loggedIn") === "true") {
+    loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
+  } else {
+    loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
+  }
+};
+
+checkLoggedInStatus();
+
 let allMovies;
 const fetchMovies = async () => {
   try {
@@ -59,6 +71,7 @@ const showMovies = (movie) => {
   divContainer.style.flexFlow = "column wrap";
   divContainer.style.border = "2px solid gray";
   divContainer.style.borderRadius = "5px";
+  divContainer.style.cursor = "pointer";
   divTitleContainer.style.display = "flex";
   divTitleContainer.style.width = "180px";
   divTitleContainer.style.justifyContent = "center";
@@ -92,9 +105,6 @@ const showMovies = (movie) => {
   divContainer.addEventListener("mouseover", () => {
     divContainer.style.transform = "scale(1.1)";
     divContainer.style.borderColor = "red";
-  });
-
-  divContainer.addEventListener("mouseover", () => {
     divContainer.style.transition = "all 1s";
   });
 
@@ -287,9 +297,9 @@ const displayFilteredMovies = (inpValue, type) => {
   yearLabel.innerHTML = inpValue;
   yearContainer.appendChild(yearInput);
   yearContainer.appendChild(yearLabel);
-  selectYearsForm.style.zIndex = '10'; //For å få i front
-  selectGenresForm.style.zIndex = '10'; //For å få i front
-  
+  selectYearsForm.style.zIndex = "10"; //For å få i front
+  selectGenresForm.style.zIndex = "10"; //For å få i front
+
   if (type === "years") {
     selectYearsForm.appendChild(yearContainer);
   } else if (type === "genres") {
@@ -453,10 +463,9 @@ const showSpecificMovie = (movie) => {
   closeBtn.style.top = "5px";
   closeBtn.style.right = "5px";
 
-
   //Random movie button in overlay
-  const randomMovieBtn = document.createElement('button');
-  randomMovieBtn.textContent = 'Tilfeldig film';
+  const randomMovieBtn = document.createElement("button");
+  randomMovieBtn.textContent = "Tilfeldig film";
   randomMovieBtn.style.padding = "2px";
   randomMovieBtn.style.paddingInline = "20px";
   randomMovieBtn.style.position = "absolute";
@@ -487,9 +496,6 @@ const showSpecificMovie = (movie) => {
     overlay.style.display = "none";
   });
 
-
- 
-
   if (loggedIn()) {
     const addBtn = document.createElement("button");
 
@@ -497,7 +503,7 @@ const showSpecificMovie = (movie) => {
       addToWatchList(movie);
       showAddedStatus();
 
-    overlay.style.display = "none";
+      overlay.style.display = "none";
     });
 
     addBtn.style.display = "flex";

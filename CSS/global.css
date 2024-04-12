@@ -41,7 +41,7 @@ a {
 }
 
 #userLogOut {
-  display: none;
+  display: block;
 }
 .search-container {
   display: flex;
