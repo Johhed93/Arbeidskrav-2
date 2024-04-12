@@ -39,6 +39,15 @@ a {
   display: flex;
 }
 
+h1 {
+  font-family: Mongolian Baiti, Times New Roman, serif;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+}
+
 .headerTitle {
   border: none;
   font-size: 1.8rem;

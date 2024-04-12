@@ -27,12 +27,12 @@ h1 {
     display: flex;
     flex-flow:  column wrap;
     justify-content: center;
-    background-color: #A19CE8;
+    background-color: #7d75e7;
+    border-radius: 15px;
     margin: 15px auto;
     padding: 15px;
     gap: 15px;
     width: 20rem;
-    
 }
 
 #usernameInput::placeholder,
@@ -50,14 +50,21 @@ h1 {
 }
 
 button {
+    font-size: 1rem;
+    font-weight: bold;
     padding: 15px;
     border-radius: 15px;
-    background-color: #A19CE8;
+    background-color: #ffe97a;
 }
 
 .registrateUser {
+    font-style: italic;
     margin: 15px;
     text-align: center;
-    color: black;
+    color: #4d4893;
+}
+
+.registrateUser:hover {
+    text-decoration: underline;
 }
 
