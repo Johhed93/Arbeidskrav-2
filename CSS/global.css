@@ -12,7 +12,7 @@ body {
 header {
   width: 100%;
   background-color: #a19ce8;
-  padding: 25px;
+  padding: 20px;
   border: 1px solid gray;
   margin-bottom: 50px;
 }
@@ -33,6 +33,10 @@ header nav ul li a {
 
 a {
   text-decoration: none;
+}
+
+#rightNavContainer {
+  display: flex;
 }
 
 .headerTitle {

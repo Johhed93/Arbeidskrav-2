@@ -21,35 +21,44 @@
           <li><a href="./index.html">Forside</a></li>
           <li>
             <a href="./index.html" class="headerTitle"
-              >Filmer fra 2020 - 2023</a>
+              >Filmer fra 2020 - 2023</a
+            >
           </li>
-         <li id="loginListPoint"></li>
-          <li><a href="./myList.html">Min Liste</a></li>
+          <div id="rightNavContainer">
+            <li id="loginListPoint"></li>
+            <li><a href="./myList.html">Min Liste</a></li>
+          </div>
         </ul>
       </nav>
     </header>
     <main>
-    <div class="search-container">
-      <input type="text" id="findMovieInput" placeholder="Søk etter film" />
-      <div class="filterWrapper">
-        <div>
-          <button class="filter" onclick="showYearSelection()">
-            Årstall <img src="./assets/arrowDownIcon.png" class="filterIcon">
-          </button>
-          <form class="filterForm" id="selectYearsForm"></form>
+      <div class="search-container">
+        <input type="text" id="findMovieInput" placeholder="Søk etter film" />
+        <div class="filterWrapper">
+          <div>
+            <button class="filter" onclick="showYearSelection()">
+              Årstall
+              <img src="./assets/arrowDownIcon.png" class="filterIcon" />
+            </button>
+            <form class="filterForm" id="selectYearsForm"></form>
+          </div>
+          <div class="selectYearContainer">
+            <button class="filter" onclick="showGenreSelection()">
+              Sjanger
+              <img
+                src="./assets/arrowDownIcon.png"
+                class="filterIcon"
+                id="filterIconGenre"
+              />
+            </button>
+            <form class="filterForm" id="selectGenresForm"></form>
+          </div>
         </div>
-        <div class="selectYearContainer">
-          <button class="filter" onclick="showGenreSelection()">
-            Sjanger <img src="./assets/arrowDownIcon.png" class="filterIcon" id="filterIconGenre">
-          </button>
-          <form class="filterForm" id="selectGenresForm"></form>
-        </div>
+        <button id="randomMovieBtn">Velg en tilfeldig film</button>
       </div>
-      <button id="randomMovieBtn">Velg en tilfeldig film</button>
-    </div>
-    <div id="overlay">Overlay</div>
-    <div id="movielistContainer"></div>
-    <div id="addedMessage"></div>
+      <div id="overlay">Overlay</div>
+      <div id="movielistContainer"></div>
+      <div id="addedMessage"></div>
     </main>
   </body>
 </html>
