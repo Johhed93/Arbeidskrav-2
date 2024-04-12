@@ -70,9 +70,12 @@ const showMovies = (movie) => {
   divContainer.style.alignItems = "center";
   divContainer.style.justifyContent = "space-between";
   divContainer.style.flexFlow = "column wrap";
-  divContainer.style.border = "2px solid gray";
+  divContainer.style.zIndex = "1";
+  divContainer.style.backgroundColor = "white";
+  divContainer.style.border = "2px solid black";
   divContainer.style.borderRadius = "5px";
   divContainer.style.cursor = "pointer";
+  divContainer.style.boxShadow = "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px";
   divTitleContainer.style.display = "flex";
   divTitleContainer.style.width = "180px";
   divTitleContainer.style.justifyContent = "center";
@@ -106,11 +109,13 @@ const showMovies = (movie) => {
   divContainer.addEventListener("mouseover", () => {
     divContainer.style.transform = "scale(1.1)";
     divContainer.style.borderColor = "red";
+    divContainer.style.zIndex = "5";
     divContainer.style.transition = "all 1s";
   });
 
   divContainer.addEventListener("mouseleave", () => {
     divContainer.style.transform = "scale(1.0)";
+    divContainer.style.zIndex = "1";
     divContainer.style.borderColor = "inherit";
   });
 
@@ -412,6 +417,7 @@ const showSpecificMovie = (movie) => {
   overlay.style.alignItems = "center";
   overlay.style.justifyContent = "space-evenly";
   overlay.style.flexFlow = "flexrow wrap";
+  overlay.style.zIndex = "7";
   overlay.style.border = "2px solid gray";
   overlay.style.borderRadius = "5px";
   overlay.style.backgroundColor = "#FFE97A";
