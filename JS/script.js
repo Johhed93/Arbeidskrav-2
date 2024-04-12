@@ -14,11 +14,12 @@ const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
 
+// Sjekker om brukeren er logget på
 const checkLoggedInStatus = () => {
   const loginListPoint = document.getElementById("loginListPoint");
-  if (sessionStorage.getItem("loggedIn") === "true") {
+  if (sessionStorage.getItem("loggedIn") === "true") { //Hvis ja, vis "Logg ut"
     loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
-  } else {
+  } else { // Hvis nei, vis "Logg inn"
     loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
   }
 };

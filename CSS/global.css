@@ -40,9 +40,6 @@ a {
   font-size: 1.8rem;
 }
 
-#userLogOut {
-  display: block;
-}
 .search-container {
   display: flex;
   flex-flow: row wrap;
