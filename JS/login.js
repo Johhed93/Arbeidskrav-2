@@ -86,4 +86,5 @@ const fetchUserID= async(username)=>{
 const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", async () => {
   await userLogin();
+  window.location.href = 'index.html';
 });

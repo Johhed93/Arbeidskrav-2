@@ -54,4 +54,5 @@ const newUser = async () => {
 const submitNewUsernameBtn = document.querySelector("#submitNewUsernameBtn");
 submitNewUsernameBtn.addEventListener("click", async () => {
   await newUser();
+  window.location.href = 'login.html';
 });
