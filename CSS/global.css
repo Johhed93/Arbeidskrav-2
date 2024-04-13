@@ -12,7 +12,7 @@ body {
 header {
   width: 100%;
   background-color: #a19ce8;
-  padding: 25px;
+  padding: 20px;
   border: 1px solid gray;
   margin-bottom: 50px;
 }
@@ -26,11 +26,26 @@ header nav ul {
 }
 
 header nav ul li a {
-  text-decoration: none;
   color: black;
   padding: 10px 15px;
-  border-radius: 20px;
-  border: 1px solid black;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+#rightNavContainer {
+  display: flex;
+}
+
+h1 {
+  font-family: Mongolian Baiti, Times New Roman, serif;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
 }
 
 .headerTitle {

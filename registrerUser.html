@@ -25,22 +25,39 @@
               >Filmer fra 2020 - 2023</a
             >
           </li>
-          <li><a href="./myList.html">Min Liste</a></li>
+          <div id="rightNavContainer">
+            <li>
+              <a href="login.html" id="login">Logg inn</a>
+            </li>
+            <li><a href="./myList.html">Min Liste</a></li>
+          </div>
         </ul>
       </nav>
     </header>
-  <main>
-    <h1>Registrer bruker</h1>
-    <section class="registrerContainer">
-    <div class="registrerInput">
-      <input id="newUsernameInput" name="newUsernameInput" type="text" placeholder="Skriv inn brukernavn">
+    <main>
+      <h1>Registrer bruker</h1>
+      <section class="registrerContainer">
+        <div class="registrerInput">
+          <input
+            id="newUsernameInput"
+            name="newUsernameInput"
+            type="text"
+            placeholder="Skriv inn brukernavn"
+          />
 
-      <input id="newPasswordInput" name="newPasswordInput" type="text" placeholder="Velg passord">
-    </div>
-    <div class="buttonSection">
-      <button type="submit" id="submitNewUsernameBtn">Opprett ny konto</button>
-    </div>
-    </section>
-  </main>
+          <input
+            id="newPasswordInput"
+            name="newPasswordInput"
+            type="text"
+            placeholder="Velg passord"
+          />
+        </div>
+        <div class="buttonSection">
+          <button type="submit" id="submitNewUsernameBtn">
+            Opprett ny konto
+          </button>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
