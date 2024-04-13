@@ -13,13 +13,32 @@ const getHeaders = (apiKey) => {
 const getLoggedInUser = () => {
   return JSON.parse(sessionStorage.getItem("loggedInUser"));
 };
+//Logged in
+const setLoginstatus = (status) => {
+  sessionStorage.setItem("loggedIn", status ? "true" : "false");
+};
+const loggedIn = () => {
+  return sessionStorage.getItem("loggedIn") === "true";
+};
+const logOut= ()=>{
+  setLoginstatus(false);
+  sessionStorage.removeItem("loggedInUser");
+  location.reload();
+}
 
 // Sjekker om brukeren er logget på
 const checkLoggedInStatus = () => {
   const loginListPoint = document.getElementById("loginListPoint");
-  if (sessionStorage.getItem("loggedIn") === "true") {
+  if (loggedIn()) {
     //Hvis ja, vis "Logg ut"
-    loginListPoint.innerHTML = `<div id="userLogOut">Logg ut</div>`;
+    let button= document.createElement("button");
+    button.style.background="none";
+    button.style.outline="none";
+    button.style.border="none";
+    button.innerText="Logg ut";
+    button.style.fontSize="1.2rem"
+    button.addEventListener("click", logOut)
+    loginListPoint.appendChild(button)
   } else {
     // Hvis nei, vis "Logg inn"
     loginListPoint.innerHTML = `<a href="login.html" id="login">Logg inn</a>`;
@@ -47,10 +66,7 @@ const fetchMovies = async () => {
 
 fetchMovies();
 
-//Logged in
-const loggedIn = () => {
-  return sessionStorage.getItem("loggedIn") === "true";
-};
+
 
 //Fetch movielist-div
 const movielistContainer = document.getElementById("movielistContainer");
