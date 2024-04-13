@@ -36,7 +36,8 @@ const checkLoggedInStatus = () => {
     button.style.outline="none";
     button.style.border="none";
     button.innerText="Logg ut";
-    button.style.fontSize="1.2rem"
+    button.style.fontSize="inherit"
+    button.style.fontWeight = 'bold';
     button.addEventListener("click", logOut)
     loginListPoint.appendChild(button)
   } else {
